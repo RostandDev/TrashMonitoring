@@ -7,9 +7,8 @@ create table t_administrators(
     _email varchar(255) not null,
     _identifier varchar(32) not  null,
     _password varchar(70) not null,
-    _access_level enum("user","admin") default "user",
+    _access_level enum("reader","editor") default "reader",
     _inserted_at datetime default now(),
-    _updated_at datetime default now(),
     primary key(_id),
     constraint u_administrators_uuid unique(_uuid),
     constraint u_administrators_email unique(_email),
@@ -19,8 +18,8 @@ create table t_administrators(
 
 -- default user 
 
-insert into t_administrators(_uuid, _last_name, _first_name, _email, _identifier,_password, _access_level) values ('Admin','Admin','admin','admin@gmail.com','admin','admin','admin');
-insert into t_administrators(_uuid, _last_name, _first_name, _email, _identifier,_password, _access_level) values ('User','user','user','user@gmail.com','user','$2y$12$QVrP0XX1rLMwkyHDr2U5PerJOUn/6V3OUTaxSMo7o7Yyq12ip8/YS','user');
+insert into t_administrators(_uuid, _last_name, _first_name, _email, _identifier,_password, _access_level) values ('Admin','Admin','admin','admin@gmail.com','admin','$2y$12$eqIbtxxCkqsmpyF/tiIxle0J31d5oPOL9wdwpzFTmwY83YI5dTO5.','editor');
+insert into t_administrators(_uuid, _last_name, _first_name, _email, _identifier,_password, _access_level) values ('User','user','user','user@gmail.com','user','$2y$12$QVrP0XX1rLMwkyHDr2U5PerJOUn/6V3OUTaxSMo7o7Yyq12ip8/YS','reader');
 
 
 
@@ -39,15 +38,14 @@ create table t_trashs(
     
 ) engine = innodb default charset utf8 ;
 
-create table t_trash_status(
+create table t_trashStatus(
     _id bigint auto_increment not null,
-    _uuid varchar(40) not null,
-    _status varchar(40) not null,
     _full_level int(3) not null,
     _trash bigint not null,
     _sent_at datetime default now(),
     primary key(_id),
-    constraint u_administrators_uuid unique(_uuid),
     constraint fk_trashs foreign key(_trash) references t_trashs(_id)
     
 ) engine = innodb default charset utf8 ;
+
+-- insert into  t_trashStatus(_full_level, _trash) values (50,2);

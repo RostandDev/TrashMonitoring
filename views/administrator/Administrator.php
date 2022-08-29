@@ -30,13 +30,15 @@ class Administrator extends Page {
 
     public function body()
     {
+        parent::body();
          ?>
-           <h2>Admin</h2>
+            
+           <div class="page">
 
-           <h3><a href="admins?admins">Utilisateurs</a></h3>
-           <h3><a href="maps" >Cartes</a></h3>
-
-           <div class="users">
+           <div class="addbtn">
+                <a href="admins?add">Ajouter</a>
+            </div>
+            
             <table>
                 <thead>
                     <tr>
@@ -45,6 +47,8 @@ class Administrator extends Page {
                         <th>Prenoms</th>
                         <th>Email</th>
                         <th>Droit</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,8 +62,20 @@ class Administrator extends Page {
                                 <td><?php echo $value['_first_name']; ?></td>
                                 <td><?php echo $value['_email']; ?></td>
                                 <td><?php echo $value['_access_level']; ?></td>
-                                <td class="supprimer"><a href="trashs?delete&id=<?php echo $value['_id']; ?>"><i class="icofont-trash">Delete</i></a></td>
-                                <td class="update" ><a href="trashs?update&id=<?php  echo $value['_id']; ?>">update</a></td>
+                                <td class="deletebtn"><a href="admins?delete&id=<?php echo $value['_id']; ?>"><i class="icofont-trash"></i></a></td>
+                                <?php
+
+                                if($value['_access_level'] == "editor"){
+                                    ?>
+                                        <td class="disablebtn" ><a href="admins?disable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-check"></i></a></td>
+                                    <?php
+                                }
+                                elseif($value['_access_level'] == "reader"){?>
+                                <td class="enablebtn" ><a href="admins?enable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-close"></i></a></td>
+                                <?php
+                                }
+                                ?>
+                                
 
                             </tr>
 

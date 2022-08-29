@@ -14,10 +14,8 @@ class Trashstatus extends DB{
 
     public function _insert($_data){
                                  
-        $insert = $this-> _execute("INSERT INTO t_trashs_status (_uuid, _status, _full_level, _trash) VALUES ( :_uuid, :_status, :_full_level, :_trash )", 
+        $insert = $this-> _execute("INSERT INTO t_trashStatus ( _full_level, _trash) VALUES ( :_full_level, :_trash )", 
         [
-            ':_uuid' => $_data['_uuid'],
-            ':_status' => $_data['_status'],
             ':_full_level' => $_data['_full_level'],
             ':_trash' => $_data['_trash']
         ]);
@@ -25,7 +23,6 @@ class Trashstatus extends DB{
         if($insert){
             return [
                 'status' => !0,
-                'id' => $this-> _get_id($_data['_uuid'])['id']
             ];
         }
         else{
@@ -41,7 +38,7 @@ class Trashstatus extends DB{
 
     public function _get(){
         
-        $data = $this -> _query(" SELECT * FROM t_trash_status ");
+        $data = $this -> _query("  SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id  ORDER BY t_trashStatus._sent_at DESC");
 
         if($data['status'] == !0){
             return [
@@ -54,36 +51,25 @@ class Trashstatus extends DB{
 
     public function _get_id( $_uuid ){
         
-        $data = $this -> _query(" SELECT id FROM t_trash_status WHERE _uuid = '$_uuid' ");
+        $data = $this -> _query(" SELECT _id FROM t_trashStatus WHERE _uuid = '$_uuid' ");
 
         if($data['status'] == !0){
             return [
                 'status' => !0,
-                'id' => $data['data'][0]["_id"]
+                'data' => $data['data'][0]["_id"]
             ];
         }
     }
 
-    public function _delete( $_id ){
-        
-        $data = $this -> _query(" DELETE  FROM t_trashs WHERE _id = '$_id' ");
-
-        if($data['status'] == !0){
-            return [
-                'status' => !0,
-                'id' => $_id
-            ];
-        }
-    }
 
     public function _get_by_id($_id){
         
-        $data = $this -> _query(" SELECT * FROM t_trashs WHERE _id = $_id ");
+        $data = $this -> _query(" SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id   WHERE t_trashs._id = $_id ORDER BY t_trashStatus._sent_at DESC");
 
         if($data['status'] == !0){
             return [
                 'status' => !0,
-                'id' => $data['data']
+                'data' => $data['data']
             ];
         }
     }
@@ -91,12 +77,12 @@ class Trashstatus extends DB{
 
     public function _get_last_five($_id){
         
-        $data = $this -> _query(" SELECT * FROM t_trashs  ORDER BY _sent_at DESC limit 5 WHERE _id = $_id ");
+        $data = $this -> _query(" SELECT * FROM t_trashStatus  ORDER BY _sent_at DESC limit 5  ");
 
         if($data['status'] == !0){
             return [
                 'status' => !0,
-                'id' => $data['data']
+                'data' => $data['data']
             ];
         }
     }

@@ -1,0 +1,92 @@
+:root {
+    --teal: #20c997; --cyan: #09c2de; --white: #fff; --gray: #6c757d; --gray-dark: #343a40; --primary: #2263b3; --secondary: #364a63; --success: #1ee0ac; --info: #09c2de; --warning: #f4bd0e; --danger: #e85347; --dark: #1c2b46; --gray: #8091a7; --light: #e5e9f2; --lighter: #f5f6fa; --breakpoint-xs: 0; --breakpoint-sm: 576px; --breakpoint-md: 768px; --breakpoint-lg: 992px; --breakpoint-xl: 1200px; --breakpoint-xxl: 1540px; --font-family-sans-serif: (Roboto, sans-serif), "Helvetica Neue", Arial, "Noto Sans", sans-serif; --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
+}
+
+*, *::before, *::after { 
+   box-sizing: border-box; 
+}
+
+html { 
+   font-family: sans-serif; 
+   line-height: 1.15; 
+   -webkit-text-size-adjust: 100%; 
+   
+}
+
+a {
+    text-decoration: none;
+
+}
+body { 
+   
+    font-family: Roboto, sans-serif, "Helvetica Neue", Arial, "Noto Sans", sans-serif; 
+    font-size: 0.875rem; 
+    font-weight: 400;    
+    background-color: #f5f6fa;
+}
+
+
+
+input{
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    border: none;
+    outline: none;
+    background: #f1f1f1;
+}
+
+input[type=submit]{
+    background-color: #04AA6D;
+    color: white;
+
+}
+.addbtn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 4%;
+}
+
+.deletebtn {
+    color: #f44336; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.updatebtn {
+    color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+
+table{
+    font-size: 20px;
+    padding: 1%;
+    margin: auto;
+    margin-top: 1%;
+    align-self: center;
+}
+
+tr:nth-child(even){
+    background-color: #f1f1f1;
+}

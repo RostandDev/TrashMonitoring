@@ -25,15 +25,7 @@ class Maps  extends Page
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
    crossorigin="" >
-   <style>
-        #map { 
-            height: 800px; 
-            width: 100%;
-            text-align: center;
-            margin: auto;
-        }
-
-    </style>
+    <link rel="stylesheet" href="public/css/map.css">
    
 
     <?php       
@@ -45,8 +37,7 @@ class Maps  extends Page
         parent::js();
         ?>
         
-        <!--script src="../public/bib/leaflet/leaflet.js" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-   crossorigin="" --></script>
+        <script src="public/js/map.js"></script>
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
    crossorigin=""></script>
@@ -85,10 +76,12 @@ class Maps  extends Page
         maxZoom: 19,
         attribution: 'tiddTrashs'
         }).addTo(map);
+        var marker2 = L.marker([6.1504068, 1.2189674]).addTo(map);
 
+        marker2.bindPopup("<b>"+ data[i][2] + "</b>").openPopup();
         //console.log(data);
 
-        for(var i=0 in data)
+        /*for(var i in data)
         {
             console.log(data[i]);
 
@@ -99,7 +92,7 @@ class Maps  extends Page
 
                 marker2.bindPopup("<b>"+ data[i][2] + "</b>").openPopup();
             }
-        }
+        }*/
 
 
     function onMapClick(e) {
@@ -119,9 +112,11 @@ class Maps  extends Page
 
     public function body()
     {
-        ?>
+      parent::body();  ?>
        
-           <div id="map"></div>
+           <div class="page">
+                <div id="map"></div>
+           </div>
         <?php
 
         $this->js();

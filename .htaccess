@@ -1,0 +1,9 @@
+
+RewriteEngine On # Activer le module Rewrite
+
+RewriteRule ^start$ controllers/administrator.php?login [L]
+RewriteRule ^deconnecte$ controllers/administrator.php?disconnecte [L]
+RewriteRule ^admins$ controllers/administrator.php [L]
+RewriteRule ^trashs$ controllers/trash.php [L]
+RewriteRule ^maps$ controllers/maps.php?maps [L]
+#RewriteRule ^.+$ 404.php [L]

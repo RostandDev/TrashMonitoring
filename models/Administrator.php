@@ -23,12 +23,12 @@
 
         public function _insert($_data){
                                  
-            $insert = $this-> _execute("INSERT INTO t_administrators(_uuid, _last_name, _first_name, _email_address, _identifier, _password) VALUES ( :_uuid, :_last_name, :_first_name, :_email_address, :_identifier, :_password )", 
+            $insert = $this-> _execute("INSERT INTO t_administrators(_uuid, _last_name, _first_name, _email, _identifier, _password) VALUES ( :_uuid, :_last_name, :_first_name, :_email, :_identifier, :_password )", 
             [
                 ':_uuid' => $_data['_uuid'],
                 ':_last_name' => $_data['_last_name'],
                 ':_first_name' => $_data['_first_name'],
-                ':_email' => $_data['_email_address'],
+                ':_email' => $_data['_email'],
                 ':_identifier' => $_data['_identifier'],
                 ':_password' => $_data['_password']
 
@@ -37,7 +37,7 @@
             if($insert){
                 return [
                     'status' => !0,
-                    'id' => $this-> _get_id($_data['_uuid'])['id']
+                    'id' => $this-> _get_id($_data['_uuid'])['_id']
                 ];
             }
             else{
@@ -61,12 +61,12 @@
 
         public function _update( array $_data){
 
-            $updated = $this-> _execute("UPDATE  t_administrators SET  _last_name = :_last_name, _first_name = :_first_name , _email_address = :_email_address, _identifier  = :_identifier, _password = :_password WHERE _id = :_id", 
+            $updated = $this-> _execute("UPDATE  t_administrators SET  _last_name = :_last_name, _first_name = :_first_name , _email = :_email, _identifier  = :_identifier, _password = :_password WHERE _id = :_id", 
             [
                 ":_id" => $_data['_id'],
                 ':_last_name' => $_data['_last_name'],
                 ':_first_name' => $_data['_first_name'],
-                ':_email' => $_data['_email_address'],
+                ':_email' => $_data['_email'],
                 ':_identifier' => $_data['_identifier'],
                 ':_password' => $_data['_password']
 
@@ -119,7 +119,7 @@
             else{
                 return [
                     'status' => !1
-                ];
+                ]; 
             }
         }
 
@@ -213,7 +213,7 @@
 
         public function _get_id( $_uuid ){
         
-            $data = $this -> _query(" SELECT id FROM t_administrators WHERE _uuid = '$_uuid' ");
+            $data = $this -> _query(" SELECT _id FROM t_administrators WHERE _uuid = '$_uuid' ");
 
             if($data['status'] == !0){
                 return [
@@ -225,15 +225,15 @@
 
         public function _enable_admin( $_data ){
         
-            $data = $this -> _execute("UPDATE  t_administrators SET _access_level = 'admin' WHERE uuid = :uuid ", [
-                ":uuid" => $_data['uuid'],
+            $data = $this -> _execute("UPDATE  t_administrators SET _access_level = 'editor' WHERE _id = :_id ", [
+                ":_id" => $_data['_id'],
                 
             ]);
 
             if($data['status'] == !0){
                 return [
                     'status' => !0,
-                    'id' =>  $this-> _get_id($_data['uuid'])['_id']
+                    'id' =>  $_data['_id']
                 ];
             }
             else{
@@ -245,15 +245,15 @@
 
         public function _disable_admin( $_data ){
         
-            $data = $this -> _execute("UPDATE  t_administrators SET _access_level = 'user' WHERE uuid = :uuid ", [
-                ":uuid" => $_data['uuid'],
+            $data = $this -> _execute("UPDATE  t_administrators SET _access_level = 'reader' WHERE _id = :_id ", [
+                ":_id" => $_data['_id'],
                 
             ]);
 
             if($data['status'] == !0){
                 return [
                     'status' => !0,
-                    'id' => $this-> _get_id($_data['uuid'])['id']
+                    'id' => $_data['_id']
                 ];
             }
         }

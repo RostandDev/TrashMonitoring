@@ -29,38 +29,39 @@ class Add extends Page {
 
     public function body()
     {
+        parent::body();
          ?>
-           <h2> Add user </h2>
+           <h2> Ajouter un utilisateur </h2>
           
-           <div class="login">
+           <div class="page">
             <form action="admins" method="post">
-            <span> Nom </span>
-            <input type="text" name="_last_name" id="">
+            <div> Nom </div>
+            <input type="text" name="_last_name" id="" required>
 
-            <span> Prenoms </span>
-            <input type="text" name="_first_name" id="">
+            <div> Prenoms </div>
+            <input type="text" name="_first_name" id="" required>
 
-            <span> Email </span>
-            <input type="email" name="_emil" id="">
+            <div> Email </div>
+            <input type="email" name="_email" id="" required>
             <div class="password">
 
             
             </div>
             <div class="identifier">
-            <span>Identifiant</span>
-            <input type="text" name="_identifier" id="identifier" placeholder="toto47d">
+            <div>Identifiant</div>
+            <input type="text" name="_identifier" id="identifier" placeholder="toto47d" required>
             
             </div>
 
             <div class="password">
-            <span>Password</span>
-            <input type="text" name="_password" id="password">
+            <div>Password</div>
+            <input type="text" name="_password" id="password" required>
             
             </div>
 
             <div class="submit">
             
-            <input type="submit" name="insert" id="login" value="Connexion">
+            <input type="submit" name="insert" id="login" value="Ajouter" >
             
             </div>
 

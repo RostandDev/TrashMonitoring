@@ -1,0 +1,61 @@
+
+
+.dash{
+    
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    height: 50px;
+    margin: auto;
+    margin-top: 1%;
+    align-self: center;
+    font-size: 22px;
+    font-weight: 800;
+    border-bottom: 0.5px #adacac solid;
+    
+
+}
+
+
+    
+.trash{
+    margin-left: -10%;
+}
+.onglet{
+    
+    color: black;
+    padding-right: 6%;
+    width: 100%;
+}
+
+.logout-btn{
+    margin-right: 4px;
+}
+
+.onglet:hover{
+    background-color:none ; 
+}
+
+@media (max-width : 600px   ) {
+    
+    .dash{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: left;
+        width: 100%;
+        height: 100px;
+        margin: auto;
+        margin-bottom: 24%;
+        padding: 5%;
+        border-bottom: 0.5px #adacac solid;
+    }
+    
+    .onglet{
+        color: #343a40;
+        width: 88%;
+    }
+
+}
+
+

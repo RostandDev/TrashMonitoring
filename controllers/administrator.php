@@ -22,8 +22,6 @@ session_start();
 
 if(isset($_SESSION['USER_UUID'])){
 
-
-
     if(isset($_GET['admins'])   ){
         
         if($_SESSION['USER_SUPER'] == true){
@@ -37,7 +35,7 @@ if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_POST['insert'])){
 
-        if($_SESSION['USER_SUPER'] == true){
+        if($_SESSION['USER_SUPER'] == "editor"){
             $uuid = (new Uuid())->_uuid();
             $password = (new Password())->_hash(htmlspecialchars($_POST['_password']));
     
@@ -52,9 +50,14 @@ if(isset($_SESSION['USER_UUID'])){
                     '_email'=>$email, 
                     '_identifier' => htmlspecialchars($_POST['_identifier']), 
                     '_password'=> $password
+
                 ]);
                 
-                if( $admin['status'] == !0) (new AdministratorAdministrator([],"Donnée inserée avec succèss")) ;
+                if( $admin['status'] == !0) header("location:admins?admins"); 
+                else header("location:admins?admins"); ;
+
+            }else{
+                header("location:admins?add"); 
             }
         }
         else (new Login())->html();
@@ -92,13 +95,15 @@ if(isset($_SESSION['USER_UUID'])){
 
     }
 
-    if(isset($_POST['delete'])){
+    if(isset($_GET['delete'])){
         if($_SESSION['USER_SUPER'] == true){
+
             $admin = (new Admin())->_delete([ 
-                "_id" => intval($_POST['_id']),
+                "_id" => intval($_GET['id']),
             ]);
     
-            echo $admin['id'] ;    
+             if($admin['status'] == !0) (new AdministratorAdministrator((new Administrator())->_get()['data'],"Donnée supprimer "))->html();
+             else (new AdministratorAdministrator((new Administrator())->_get()['data'],"Echéc de suppression"))->html();
 
         }
         else (new Login())->html();
@@ -108,22 +113,19 @@ if(isset($_SESSION['USER_UUID'])){
 
 
 
+    if(isset($_GET['enable'])){
 
-
-
-    if(isset($_POST['enable'])){
-
-        if($_SESSION['USER_SUPER'] == true){
-
+        if($_SESSION['USER_SUPER'] == 'editor'){
+            echo 'ok';
             $enable = (new Administrator())->_enable_admin([
-                "uuid"=> htmlspecialchars($_POST['uuid'])
+                "_id"=> htmlspecialchars($_GET['id'])
             ]);
     
             if($enable['status'] == !0){
-                (new AdministratorAdministrator([],"Utilisateur est a maintenat=nt le droit d'administrateur "))->html();
+                header("location:admins?admins");
             }
             else{
-                (new AdministratorAdministrator([],"Echec "))->html();  
+                header("location:admins?admins");
             }
         }
         else (new Login())->html();
@@ -133,20 +135,19 @@ if(isset($_SESSION['USER_UUID'])){
     }
     
 
-    if(isset($_POST['disable']) ){
+    if(isset($_GET['disable']) ){
 
         if($_SESSION['USER_SUPER'] == true){
             $disable = (new Administrator())->_disable_admin([
-                "uuid"=> htmlspecialchars($_POST['uuid'])
+                "_id"=> htmlspecialchars($_GET['id'])
             ]);
     
             if($disable['status'] == !0){
                 
-                (new AdministratorAdministrator([],"Utilisateur est n'a plus le droit d'administrateur "))->html();     
-                
+                header("location:admins?admins");                
             }
             else{
-                (new AdministratorAdministrator([],"Echec "))->html();  
+                header("location:admins?admins");
             }
         }
         else (new Login())->html();
@@ -154,7 +155,7 @@ if(isset($_SESSION['USER_UUID'])){
     }
 
     if(isset($_GET['add'])  ){
-        if($_SESSION['USER_SUPER'] == true) (new Add())->html();
+        if($_SESSION['USER_SUPER'] == "editor") (new Add())->html();
         else (new AdministratorAdministrator([],"Echec "))->html(); 
     }
 
@@ -183,25 +184,29 @@ if(isset($_POST['login'])){
 
     $admin = (new Admin())->_connexion([ 
         '_email' => htmlspecialchars($_POST['_email']), 
-            '_password'=> htmlspecialchars($_POST['_password'])
+        '_password'=> htmlspecialchars($_POST['_password'])
     ]);
 
     if($admin['status'] == !0){
 
         $_SESSION['USER_UUID'] = $admin['user']['_uuid'];
-        $_SESSION['USER_NAME'] = $admin['user']['_name'];
+        $_SESSION['USER_LAST_NAME'] = $admin['user']['_last_name'];
         $_SESSION['USER_FIRST_NAME'] = $admin['user']['_first_name'];
         $_SESSION['USER_EMAIL'] = $admin['user']['_email'];
         $_SESSION['USER_ID'] = $admin['user']['_id'];
-        $_SESSION['USER_SUPER'] = $admin['user']['_access_level'];
+        
 
 
-        if($admin['user']['_access_level'] == "admin") header("location:admins?admins"); 
-        else{
-           // (new Maps())->html();
+        if($admin['user']['_access_level'] == "editor") {
+            $_SESSION['USER_SUPER'] = "editor";
+            header("location:admins?admins"); 
+        }
+        elseif($admin['user']['_access_level'] == "reader"){
+            $_SESSION['USER_SUPER'] = "reader";
 
            header("location:maps");
         }
+        else header("location:start");
 
     }
     else{
@@ -209,24 +214,4 @@ if(isset($_POST['login'])){
     }
 
     
-
-/*
-    if($_POST['user'])
-    {
-
-
-        $_SESSION['USER_NAME'] = $connected['user']['_name'];
-        $_SESSION['USER_FIRST_NAME'] = $connected['user']['_first_name'];
-        $_SESSION['USER_EMAIL'] = 'root@gemail.com';
-        $_SESSION['USER_ID'] = 2;
-
-
-         if($_POST['user'] == "admin") (new ViewsAdministrator())->html();
-        else{
-            (new Maps())->html();
-        }
-    }*/
-
-   
-
 }
