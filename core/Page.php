@@ -17,7 +17,10 @@ class Page extends View
 
     public function js()
     {
-        
+        ?>
+        <script src="public/js/page.js"></script>
+  
+<?php
     }
 
     public function head()
@@ -33,12 +36,14 @@ class Page extends View
             <link rel="stylesheet" href="public/media/fonts/icofont/icofont.css">
             <link rel="stylesheet" href="public/media/fonts/icofont/icofont.min.css">
             <title>Panel de controle</title>
+            
         </head>
         <?php
     }
 
     public function body()
     {
+
         ?>
         <body>
             <div class="dash">                
@@ -53,6 +58,7 @@ class Page extends View
         
 
  <?php
+    $this->js(); 
         
     }
 

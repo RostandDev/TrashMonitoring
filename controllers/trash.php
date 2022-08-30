@@ -104,6 +104,7 @@ if(isset($_SESSION['USER_UUID'])){
     if(isset($_GET['status'])){
         if(isset($_GET['id'])){
 
+
             (new Status((new Trashstatus())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data']))->html();
         }
         else{
@@ -118,9 +119,6 @@ if(isset($_SESSION['USER_UUID'])){
         }
     }
 
-    if(isset($_GET['message'])){
-        
-    }
 
 }
 else{

@@ -38,12 +38,12 @@ class Trashstatus extends DB{
 
     public function _get(){
         
-        $data = $this -> _query("  SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id  ORDER BY t_trashStatus._sent_at DESC");
+        $data = $this -> _query("  SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id  ORDER BY t_trashStatus._sent_at ");
 
         if($data['status'] == !0){
             return [
                 'status' => !0,
-                'id' => $data['data']
+                'data' => $data['data']
             ];
         }
     }
@@ -64,7 +64,7 @@ class Trashstatus extends DB{
 
     public function _get_by_id($_id){
         
-        $data = $this -> _query(" SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id   WHERE t_trashs._id = $_id ORDER BY t_trashStatus._sent_at DESC");
+        $data = $this -> _query(" SELECT t_trashStatus._sent_at, t_trashStatus._full_level, t_trashs.* FROM t_trashStatus INNER JOIN t_trashs ON t_trashStatus._trash = t_trashs._id   WHERE t_trashs._id = $_id ORDER BY t_trashStatus._sent_at ");
 
         if($data['status'] == !0){
             return [

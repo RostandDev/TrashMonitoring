@@ -15,18 +15,22 @@ html {
 
 a {
     text-decoration: none;
+    color:black;
 
 }
 body { 
    
     font-family: Roboto, sans-serif, "Helvetica Neue", Arial, "Noto Sans", sans-serif; 
-    font-size: 0.875rem; 
+    font-size: 22px; 
     font-weight: 400;    
     background-color: #f5f6fa;
 }
 
 
+form{
+    font-size: 25px;
 
+}
 input{
     width: 80%;
     padding: 10px;
@@ -34,11 +38,13 @@ input{
     border: none;
     outline: none;
     background: #f1f1f1;
+    font-size: 25px;
 }
 
 input[type=submit]{
     background-color: #04AA6D;
     color: white;
+    font-size: 25px;
 
 }
 .addbtn {
@@ -54,33 +60,42 @@ input[type=submit]{
     margin: 4%;
 }
 
-.deletebtn {
+.deletebtn a{
     color: #f44336; /* Green */
     border: none;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 800;
 }
 
-.updatebtn {
+.updatebtn a{
     color: #4CAF50; /* Green */
     border: none;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.readbtn a{
+    color: #4e4caf; 
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
     font-weight: 800;
 }
 
 
 table{
-    font-size: 20px;
+    font-size: 25px;
     padding: 1%;
     margin: auto;
     margin-top: 1%;
@@ -88,5 +103,6 @@ table{
 }
 
 tr:nth-child(even){
-    background-color: #f1f1f1;
+    background-color: #8d8c8c;
+    
 }

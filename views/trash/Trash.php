@@ -64,9 +64,9 @@ class Trash extends Page
                         <td class="longitude"><?php echo $values['_longitude']; ?></td>
                         <td class="latitude"><?php echo $values['_latitude']; ?></td>
                         <td class="latitude"><?php echo $values['_address']; ?></td>
-                        <td class="updatebtn"><a href="trashs?delete&id=<?php echo $values['_id']; ?>"><i class="icofont-trash"></i></a></td>
-                        <td class="deletebtn" ><a href="trashs?update&id=<?php  echo $values['_id']; ?>"><i class="icofont-ui-edit"></i></a></td>
-                        <td class="deletebtn" ><a href="trashs?status&id=<?php  echo $values['_id']; ?>"><i class="icofont-eye"></i></a></td>
+                        <td class="deletebtn"><a href="trashs?delete&id=<?php echo $values['_id']; ?>" ><i class="icofont-trash"></i></a></td>
+                        <td class="updatebtn" ><a href="trashs?update&id=<?php  echo $values['_id']; ?>"><i class="icofont-ui-edit"></i></a></td>
+                        <td class="readbtn" ><a href="trashs?status&id=<?php  echo $values['_id']; ?>"><i class="icofont-eye"></i></a></td>
                        
 
 

@@ -33,9 +33,12 @@ class Status extends Page {
     {
         parent::body();
          ?>
-           <h2> Ajouter un utilisateur </h2>
+           <h2> Les niveaux recents </h2>
           
            <div class="page">
+
+           <div class="" ><a alt ="Voir sur la carte" href="trashs?onmaps&id=<?php  echo $this->_data[0]['_id']; ?>"><i class="icofont-maps">Voir la poubelle sur la carte</i></a></div>
+           <!--div class="delete"><a href="status?reset&id=<?php  //echo $this->_data[0]['_id']; ?>"> Vider les donné de cette poubelle</a></div-->
            <table >
                     <thead class="head">
                         <tr class="line">
@@ -55,10 +58,9 @@ class Status extends Page {
                          </tr>
                         
                         <td class="identifiant"><?php echo $n; ?></td>
-                        <td class="longitude"><?php echo $values['_set_at']; ?></td>
+                        <td class="longitude"><?php echo $values['_sent_at']; ?></td>
                         <td class="latitude"><?php echo $values['_full_level']; ?></td>
                         <td class="latitude"><?php echo $values['_address']; ?></td>
-                        <td class="deletebtn" ><a href="trashs?onmaps&id=<?php  echo $values['_id']; ?>"><i class="icofont-eye"></i></a></td>
                        
 
 

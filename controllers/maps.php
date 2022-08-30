@@ -3,6 +3,7 @@
 session_start();
 
 use models\Trash;
+use models\Trashstatus;
 use views\Maps;
 
 if(isset($_SESSION['USER_UUID'])){
@@ -12,7 +13,7 @@ if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_GET['maps']) && $_SESSION['USER_SUPER']){
         
-        (new Maps((new Trash())->_get()['data']))->html();
+        (new Maps((new Trashstatus())->_get()['data']))->html();
     }
 }
 else{
