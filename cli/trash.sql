@@ -36,7 +36,7 @@ CREATE TABLE `t_administrators` (
   UNIQUE KEY `u_administrators_uuid` (`_uuid`),
   UNIQUE KEY `u_administrators_email` (`_email`),
   UNIQUE KEY `u_administrators_identifier` (`_identifier`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `t_administrators` (
 
 LOCK TABLES `t_administrators` WRITE;
 /*!40000 ALTER TABLE `t_administrators` DISABLE KEYS */;
-INSERT INTO `t_administrators` VALUES (2,'Admin','Admin','admin','admin@gmail.com','admin','$2y$12$eqIbtxxCkqsmpyF/tiIxle0J31d5oPOL9wdwpzFTmwY83YI5dTO5.','editor','2022-08-29 20:32:14'),(3,'User','user','user','user@gmail.com','user','$2y$12$QVrP0XX1rLMwkyHDr2U5PerJOUn/6V3OUTaxSMo7o7Yyq12ip8/YS','reader','2022-08-29 20:32:25'),(6,'e4154947-844f-427a-9cca-96169a512b99','k!dfkl','KDFLj','ekame-admin@gmail.com','ertyuiop','$2y$12$ECVO7XasgLm1JfN1E/2v.uyuwcSAqUfFMt.Yt9iPOad.uy4AZp8aW','editor','2022-08-29 20:37:50'),(7,'b63190b7-abd0-4c56-865f-a56da6aefd74','tyiu','arzr','ez@gmail.com','azeezz','$2y$12$L8c5ScgSGn2FsP4jUysU1OXMZRV717yVlp44bK53Sk8S6m7YZAomy','editor','2022-08-29 21:52:21');
+INSERT INTO `t_administrators` VALUES (2,'Admin','Admin','admin','admin@gmail.com','admin','$2y$12$eqIbtxxCkqsmpyF/tiIxle0J31d5oPOL9wdwpzFTmwY83YI5dTO5.','editor','2022-08-29 20:32:14'),(3,'User','user','user','user@gmail.com','user','$2y$12$QVrP0XX1rLMwkyHDr2U5PerJOUn/6V3OUTaxSMo7o7Yyq12ip8/YS','reader','2022-08-29 20:32:25'),(6,'e4154947-844f-427a-9cca-96169a512b99','k!dfkl','KDFLj','ekame-admin@gmail.com','ertyuiop','$2y$12$ECVO7XasgLm1JfN1E/2v.uyuwcSAqUfFMt.Yt9iPOad.uy4AZp8aW','editor','2022-08-29 20:37:50');
 /*!40000 ALTER TABLE `t_administrators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `t_trashStatus` (
   PRIMARY KEY (`_id`),
   KEY `fk_trashs` (`_trash`),
   CONSTRAINT `fk_trashs` FOREIGN KEY (`_trash`) REFERENCES `t_trashs` (`_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `t_trashStatus` (
 
 LOCK TABLES `t_trashStatus` WRITE;
 /*!40000 ALTER TABLE `t_trashStatus` DISABLE KEYS */;
-INSERT INTO `t_trashStatus` VALUES (1,80,1,'2022-08-29 22:23:41'),(2,98,1,'2022-08-29 22:24:02'),(3,50,2,'2022-08-29 22:24:17');
+INSERT INTO `t_trashStatus` VALUES (1,80,1,'2022-08-29 22:23:41'),(2,98,1,'2022-08-29 22:24:02'),(3,50,2,'2022-08-29 22:24:17'),(4,25,1,'2022-08-30 00:36:55'),(5,25,2,'2022-08-30 00:38:08'),(6,50,2,'2022-08-30 00:38:48'),(7,50,11,'2022-08-30 20:27:06'),(8,50,10,'2022-08-30 20:27:48'),(9,95,10,'2022-08-30 20:30:28');
 /*!40000 ALTER TABLE `t_trashStatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `t_trashs` (
   UNIQUE KEY `u_trashs_uuid` (`_uuid`),
   KEY `fk_trashs_administrators` (`_author`),
   CONSTRAINT `fk_trashs_administrators` FOREIGN KEY (`_author`) REFERENCES `t_administrators` (`_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `t_trashs` (
 
 LOCK TABLES `t_trashs` WRITE;
 /*!40000 ALTER TABLE `t_trashs` DISABLE KEYS */;
-INSERT INTO `t_trashs` VALUES (1,'f82403d7-36e9-488b-befd-d22951d82201','  687555.885845 ','  4875.55855 ',2,'  Adomi ','2022-08-29 20:34:24','2022-08-29 20:34:24'),(2,'f70b2544-71ed-4198-aa2e-7497c32da9a2','687555.88','1.1817924',2,'  Lome2 ','2022-08-29 21:58:26','2022-08-29 21:58:26');
+INSERT INTO `t_trashs` VALUES (1,'f82403d7-36e9-488b-befd-d22951d82201','  687555.885845 ','  4875.55855 ',2,'  Adomi ','2022-08-29 20:34:24','2022-08-29 20:34:24'),(2,'f70b2544-71ed-4198-aa2e-7497c32da9a2','687555.88','1.1817924',2,'  Lome2 ','2022-08-29 21:58:26','2022-08-29 21:58:26'),(10,'20fa9a1c-c202-4553-b64b-00a9bdaa062f','1.1817924','6.2091521',3,'ESGIS Avedji','2022-08-30 20:22:40','2022-08-30 20:22:40'),(11,'4236e95f-edbd-48a6-9c60-51383e93abcc','1.1632198','6.203633',3,'CAP Amadahomé','2022-08-30 20:23:41','2022-08-30 20:23:41');
 /*!40000 ALTER TABLE `t_trashs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -119,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-29 22:56:56
+-- Dump completed on 2022-08-30 22:47:58

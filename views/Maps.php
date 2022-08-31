@@ -45,7 +45,7 @@ class Maps  extends Page
    <script>
    
        
-        var map = L.map('map').setView([6.2079449,1.1731463], 20);
+        var map = L.map('map').setView([6.2079449,1.1731463], 13);
 
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -72,25 +72,25 @@ class Maps  extends Page
                         <script>
                             var Icon = L.icon({
                                 iconUrl: 'public/media/fonts/icons/blueTrash.jpeg',
-                                iconSize:     [38,38], // size of the icon
+                                iconSize:     [18,18], // size of the icon
                                 
-                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
                                 shadowAnchor: [4, 62],  // the same for the shadow
-                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                                popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
                             });
                         </script>
                     <?php
                 }
-                elseif($values['_full_level'] <= 80){
+                elseif($values['_full_level'] <95 && $values['_full_level']>=80){
                     ?>
                         <script>
                             var Icon = L.icon({
-                                iconUrl: 'public/media/fonts/icons/YellowTrash.jpeg',
-                                iconSize:     [38,38], // size of the icon
+                                iconUrl: 'public/media/fonts/icons/yellowTrash.jpeg',
+                                iconSize:     [18,18], // size of the icon
                                 
-                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
                                 shadowAnchor: [4, 62],  // the same for the shadow
-                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                                popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
                             });
                         </script>
                     <?php
@@ -101,10 +101,10 @@ class Maps  extends Page
                         <script>
                             var Icon = L.icon({
                                 iconUrl: 'public/media/fonts/icons/redTrash.jpeg',
-                                iconSize:     [38,38], // size of the icon
+                                iconSize:     [18,18], // size of the icon
                                 
-                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                                shadowAnchor: [4, 62],  // the same for the shadow
+                                iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+                                shadowAnchor: [0, 0],  // the same for the shadow
                             });
                         </script>
                     <?php
@@ -118,8 +118,8 @@ class Maps  extends Page
                         lat = <?php echo $values['_latitude']; ?>;
 
                     
-                    L.marker([lat, long], {icon: Icon}).addTo(map);
-                    var marker2 = L.marker([lat,long]).addTo(map);
+                    
+                    var marker2 = L.marker([lat, long], {icon: Icon}).addTo(map); /*L.marker([lat,long]).addTo(map)*/;
 
                     marker2.bindPopup("<b><?php echo $values['_address']." niveau : ".$values['_full_level']; ?>%</b>").openPopup();
 

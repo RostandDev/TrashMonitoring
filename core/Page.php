@@ -47,12 +47,12 @@ class Page extends View
         ?>
         <body>
             <div class="dash">                
-                    <div class="onglet"></div>
+                    <div class=" logo" ><a href="admins?account&id=<?php echo $_SESSION['USER_ID']?> "><img src="public/media/images/logo.jpg" alt="" srcset="" ></a></div>
                     <div class="onglet trash"><a href="trashs?trashs"> <i class="icofont-trash"></i>Poubelles</a></div>
                     <div class="onglet"><a href="maps" ><i class="icofont-ui-map"></i>Cartes</a></div>
                     <?php if($_SESSION['USER_SUPER']=='editor') {?> <div class="onglet"><a href="admins?admins">Utilisateurs</a></div> <?php } ?>               
-                    <div class="onglet "><i class="icofont-user-alt-3"></i><?php  echo $_SESSION['USER_EMAIL'] ?></div>
-                    <div class="onglet logout-btn"><a href="deconnecte"><i class="icofont-logout"></i>Se deconnecter</a></div>
+                   
+                    <div class="onglet logout-btn"><a href="deconnecte"><i class="icofont-ui-power"></i></a></div>
                 
             </div>
         

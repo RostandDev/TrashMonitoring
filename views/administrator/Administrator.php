@@ -67,11 +67,11 @@ class Administrator extends Page {
 
                                 if($value['_access_level'] == "editor"){
                                     ?>
-                                        <td class="disablebtn" ><a href="admins?disable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-check"></i></a></td>
+                                        <td class="updatebtn" ><a href="admins?disable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-check"></i></a></td>
                                     <?php
                                 }
                                 elseif($value['_access_level'] == "reader"){?>
-                                <td class="enablebtn" ><a href="admins?enable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-close"></i></a></td>
+                                <td class="deletebtn" ><a href="admins?enable&id=<?php  echo $value['_id']; ?>"><i class="icofont-ui-close"></i></a></td>
                                 <?php
                                 }
                                 ?>

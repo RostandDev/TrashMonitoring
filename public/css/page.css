@@ -21,14 +21,22 @@ a {
 body { 
    
     font-family: Roboto, sans-serif, "Helvetica Neue", Arial, "Noto Sans", sans-serif; 
-    font-size: 22px; 
+    font-size: 20px; 
     font-weight: 400;    
     background-color: #f5f6fa;
 }
 
 
+
+
+.logout-btn a:hover{
+    color: #f44336; /* Green */
+    
+    
+}
+
 form{
-    font-size: 25px;
+    font-size: 20px;
 
 }
 input{
@@ -38,13 +46,13 @@ input{
     border: none;
     outline: none;
     background: #f1f1f1;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 input[type=submit]{
     background-color: #04AA6D;
     color: white;
-    font-size: 25px;
+    font-size: 20px;
 
 }
 .addbtn {
@@ -58,6 +66,7 @@ input[type=submit]{
     font-size: 22px;
     font-weight: 800;
     margin: 4%;
+    border-radius: 3px;
 }
 
 .deletebtn a{
@@ -100,9 +109,14 @@ table{
     margin: auto;
     margin-top: 1%;
     align-self: center;
+    text-align: center;
+}
+td, th{
+    padding: 10px;
 }
 
 tr:nth-child(even){
-    background-color: #8d8c8c;
+    background-color: #f1f1f1;
+    
     
 }

@@ -10,12 +10,14 @@ session_start();
     */
 
     require_once("../core/autoloader.php");
+    require_once("../core/phpqrcode/qrlib.php");
     
     use core\Password;
     use core\Uuid ;
     use models\Administrator as Admin;
     use models\Administrator;
-    use views\administrator\Add;
+use views\administrator\Account;
+use views\administrator\Add;
     use views\administrator\Administrator as AdministratorAdministrator;
     use views\administrator\Login;
     use views\Maps;
@@ -25,11 +27,19 @@ if(isset($_SESSION['USER_UUID'])){
     if(isset($_GET['admins'])   ){
         
         if($_SESSION['USER_SUPER'] == true){
-            if(isset($_GET['id'])) (new AdministratorAdministrator((new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id']))),""))->html();
+            if(isset($_GET['id'])) (new AdministratorAdministrator((new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data'],""))->html();
             else (new AdministratorAdministrator((new Administrator())->_get()['data'],""))->html();
         }
         else (new Login())->html();
     }
+
+    if(isset($_GET['account'])   ){
+        
+            if(isset($_GET['id'])) (new Account((new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data'],""))->html();
+            else (new Login())->html();
+    }
+
+
 
     if(isset($_GET['login'])) (new Login())->html();
 
@@ -53,7 +63,15 @@ if(isset($_SESSION['USER_UUID'])){
 
                 ]);
                 
-                if( $admin['status'] == !0) header("location:admins?admins"); 
+                if( $admin['status'] == !0){
+
+                    $data="Mot de pass = ".htmlspecialchars($_POST['_password']).",email = ".htmlspecialchars($_POST['_email']); //données à contenir
+                    $img = $uuid.".png"; // nom de l'image
+                    
+                    QRcode::png($data, "/../disk/qr/".$img); // On crée notre QR Code
+
+                    header("location:admins?admins"); 
+                } 
                 else header("location:admins?admins"); ;
 
             }else{

@@ -7,33 +7,48 @@
     width: 90%;
     height: 50px;
     margin: auto;
-    margin-top: 1%;
+    margin-top: 2%;
     align-self: center;
     font-size: 22px;
     font-weight: 800;
-    border-bottom: 0.5px #adacac solid;
+    /*border-bottom: 0.5px #adacac solid;*/
+    
+    
     
 
 }
 
 
-    
-.trash{
-    margin-left: -10%;
+.logo img{
+    width :80px;
+    height:80px;
+    border-radius: 54%;
+    margin-top: -18%;
 }
+
+
 .onglet{
-    
+    border-left: 0.5px #adacac solid ;
     color: black;
+    margin: auto;
     padding-right: 6%;
     width: 100%;
+    text-align: center;
 }
 
 .logout-btn{
     margin-right: 4px;
 }
 
-.onglet:hover{
-    background-color:none ; 
+.onglet a{
+    padding: 4%;
+}
+
+.onglet a:hover{
+    color:#04AA6D; /* Green */
+    font-size: 28px;
+    background-color:#f1f1f1 ; 
+    
 }
 
 @media (max-width : 600px   ) {
@@ -47,13 +62,20 @@
         height: 100px;
         margin: auto;
         margin-bottom: 24%;
+        margin-top: 16%;
         padding: 5%;
-        border-bottom: 0.5px #adacac solid;
+        font-size: 17px;
+        
     }
     
     .onglet{
         color: #343a40;
         width: 88%;
+        margin: 2%;
+        border-bottom: 0.5px  #adacac solid;
+        border-width: 50%;
+        border-left:none;
+       
     }
 
 }

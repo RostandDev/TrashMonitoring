@@ -46,6 +46,7 @@ class Trash extends Page
                 <table >
                     <thead class="head">
                         <tr class="line">
+                            <th>Num</th>
                             <th class="identifiant">Identifiant</th>
                             <th class="longitude">Longitude</th>
                             <th class="latitude">Latitude</th>
@@ -56,10 +57,12 @@ class Trash extends Page
 
                     <tbody class="body ">
                        <?php  
+                       $n=0;
                        foreach($this->_data as $key => $values){
+                        $n++;
                          ?>
                          </tr>
-                        
+                         <td class="identifiant"><?php echo $n; ?></td>
                         <td class="identifiant"><?php echo $values['_uuid']; ?></td>
                         <td class="longitude"><?php echo $values['_longitude']; ?></td>
                         <td class="latitude"><?php echo $values['_latitude']; ?></td>

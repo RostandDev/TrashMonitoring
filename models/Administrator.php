@@ -37,7 +37,7 @@
             if($insert){
                 return [
                     'status' => !0,
-                    'id' => $this-> _get_id($_data['_uuid'])['_id']
+                    'id' => $this-> _get_id($_data['_uuid'])['id']
                 ];
             }
             else{
