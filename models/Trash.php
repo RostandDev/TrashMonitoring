@@ -14,10 +14,11 @@ class Trash extends DB{
 
     public function _insert($_data){
         
-        $insert = $this-> _execute("INSERT INTO t_trashs(_uuid, _longitude, _latitude,_address, _author) VALUES ( :_uuid, :_longitude, :_latitude, :_address , :_author)", 
+        $insert = $this-> _execute("INSERT INTO t_trashs(_uuid, _longitude, _latitude,_address, _author,_name) VALUES ( :_uuid, :_longitude, :_latitude, :_address , :_author,:_name)", 
         [
             ':_uuid' => $_data['_uuid'],
             ':_longitude' => $_data['_longitude'],
+            ':_name' => $_data['_name'],
             ':_latitude' => $_data['_latitude'],
             ':_author' => $_data['_author'],
             ':_address' => $_data['_address']
@@ -40,11 +41,12 @@ class Trash extends DB{
 
     public function _update($_data){
                                  
-        $insert = $this-> _execute("UPDATE   t_trashs SET _uuid = :_uuid, _longitude = :_longitude, _latitude = :_latitude, _address = :_address, _author = :_author WHERE _id = :_id", 
+        $insert = $this-> _execute("UPDATE   t_trashs SET _uuid = :_uuid, _longitude = :_longitude, _latitude = :_latitude, _address = :_address, _author = :_author, _name = :_name WHERE _id = :_id", 
         [
             ':_uuid' => $_data['_uuid'],
             ':_longitude' => $_data['_longitude'],
             ':_latitude' => $_data['_latitude'],
+            ':_name' => $_data['_name'],
             ':_address' => $_data['_address'],
             ':_author' => $_data['_author'],
             ':_id' => $_data['_id']

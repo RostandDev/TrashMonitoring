@@ -4,7 +4,7 @@ session_start();
 
 use models\Trash;
 use models\Trashstatus;
-use views\Maps;
+use views\maps\Maps;
 
 if(isset($_SESSION['USER_UUID'])){
     
@@ -13,7 +13,14 @@ if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_GET['maps']) && $_SESSION['USER_SUPER']){
         
-        (new Maps((new Trashstatus())->_get()['data']))->html();
+        header('content-type: applicaton/json');
+        
+
+        //$data = (new Trashstatus())->_get()['data'];
+
+        echo json_encode($data, JSON_PRETTY_PRINT) ;
+
+        //print_r(json_encode($data) ) ;
     }
 }
 else{

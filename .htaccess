@@ -2,6 +2,7 @@
 RewriteEngine On # Activer le module Rewrite
 
 RewriteRule ^start$ controllers/administrator.php?login [L]
+RewriteRule ^home$ controllers/home.php [L]
 RewriteRule ^deconnecte$ controllers/administrator.php?disconnecte [L]
 RewriteRule ^admins$ controllers/administrator.php [L]
 RewriteRule ^trashs$ controllers/trash.php [L]

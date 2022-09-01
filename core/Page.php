@@ -18,10 +18,16 @@ class Page extends View
     public function js()
     {
         ?>
-        <script src="public/js/page.js"></script>
-  
-<?php
-    }
+            <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
+            
+            <script src="public/js/page.js"></script>
+            <script src="public/js/map.js"></script>
+
+    
+    <?php
+        }
 
     public function head()
     {
@@ -46,14 +52,25 @@ class Page extends View
 
         ?>
         <body>
-            <div class="dash">                
-                    <div class=" logo" ><a href="admins?account&id=<?php echo $_SESSION['USER_ID']?> "><img src="public/media/images/logo.jpg" alt="" srcset="" ></a></div>
-                    <div class="onglet trash"><a href="trashs?trashs"> <i class="icofont-trash"></i>Poubelles</a></div>
-                    <div class="onglet"><a href="maps" ><i class="icofont-ui-map"></i>Cartes</a></div>
-                    <?php if($_SESSION['USER_SUPER']=='editor') {?> <div class="onglet"><a href="admins?admins">Utilisateurs</a></div> <?php } ?>               
-                   
-                    <div class="onglet logout-btn"><a href="deconnecte"><i class="icofont-ui-power"></i></a></div>
+            <div class="dash"> 
+                <div class=" part part1">
+                   <div class="container1">
+                        <div class=" logo" ><img src="public/media/images/logo.jpg" alt="" srcset="" ></div>
+                        <div class=" user"><?php echo $_SESSION['USER_LAST_NAME']." ".$_SESSION['USER_FIRST_NAME']; ?> </div>
+                   </div>
+                   <div class="container2">
+                        <div class="drive logout-btn"><a href="deconnecte"><i class="icofont-ui-power"></i></a></div>
+
+                   </div>
+                </div> 
                 
+                <div class="part part2">
+                    <div class="driver active" onclick="page(event, 'maps')"><a href="#maps" >Cartes</a></div>
+                    <div class="driver  " onclick="page(event, 'trashs')"><a href="#poubelles">Poubelles</a></div>
+                    <?php if($_SESSION['USER_SUPER']=='editor') {?> <div class="driver " onclick="page(event, 'users')"><a href="#utilisateurs">Utilisateurs</a></div> <?php } ?>
+                </div>
+                    
+                                                 
             </div>
         
 
@@ -74,6 +91,8 @@ class Page extends View
                     
                     <?php
                     $this->body();
+
+                    $this->js();
                 ?>
                 </body>
             </html>

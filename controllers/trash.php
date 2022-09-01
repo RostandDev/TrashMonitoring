@@ -24,13 +24,7 @@ if(isset($_SESSION['USER_UUID'])){
 
     }
 
-    if(isset($_GET['onmaps'])){
 
-        header('content-type: applicaton/json');
-        
-        
-        echo json_encode((new ModelsTrash())->_get()['data'], JSON_PRETTY_PRINT) ;
-    }
 
 
     // Executer l'ajout d'une poubelle
@@ -41,14 +35,15 @@ if(isset($_SESSION['USER_UUID'])){
             '_uuid' => (new Uuid())->_uuid(),
             '_longitude' => htmlspecialchars($_POST['_longitude']),
             '_latitude' => htmlspecialchars($_POST['_latitude']),
+            '_name' => htmlspecialchars($_POST['_name']),
             '_address' => htmlspecialchars($_POST['_address']),
             '_author' => intval(htmlspecialchars($_SESSION['USER_ID']))
         ]);
 
         if($insert['status']== !0) {
-            (new Trash((new ModelsTrash())->_get()['data'],"Donnée enregistré"))->html();
+            header('location:home');
         }
-        else (new Add([],"Echec d'enregistrer"))->html(); 
+        else ("Echec d'enregistrer"); 
 
 
     }
@@ -75,11 +70,6 @@ if(isset($_SESSION['USER_UUID'])){
     
     }
 
-    // Affichier le formulaire d'ajout d'une poubelle
-    if(isset($_GET['add'])){
-    
-        (new Add())->html();
-    }
 
 
 
@@ -112,12 +102,7 @@ if(isset($_SESSION['USER_UUID'])){
         }
     }
 
-    if(isset($_GET['onmaps'])){
-        if(isset($_GET['id'])){
 
-            header("location:maps");
-        }
-    }
 
 
 }

@@ -35,7 +35,7 @@ class Status extends Page {
          ?>
            <h2> Les niveaux recents </h2>
           
-           <div class="page">
+           <div class="page" id="page">
 
            <div class="" ><a alt ="Voir sur la carte" href="trashs?onmaps&id=<?php  echo $this->_data[0]['_id']; ?>"><i class="icofont-maps">Voir la poubelle sur la carte</i></a></div>
            <!--div class="delete"><a href="status?reset&id=<?php  //echo $this->_data[0]['_id']; ?>"> Vider les donné de cette poubelle</a></div-->

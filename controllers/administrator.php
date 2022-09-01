@@ -10,17 +10,17 @@ session_start();
     */
 
     require_once("../core/autoloader.php");
-    require_once("../core/phpqrcode/qrlib.php");
+   
     
     use core\Password;
     use core\Uuid ;
     use models\Administrator as Admin;
     use models\Administrator;
-use views\administrator\Account;
-use views\administrator\Add;
+    use views\administrator\Account;
+    use views\administrator\Add;
     use views\administrator\Administrator as AdministratorAdministrator;
     use views\administrator\Login;
-    use views\Maps;
+
 
 if(isset($_SESSION['USER_UUID'])){
 
@@ -64,18 +64,12 @@ if(isset($_SESSION['USER_UUID'])){
                 ]);
                 
                 if( $admin['status'] == !0){
-
-                    $data="Mot de pass = ".htmlspecialchars($_POST['_password']).",email = ".htmlspecialchars($_POST['_email']); //données à contenir
-                    $img = $uuid.".png"; // nom de l'image
-                    
-                    QRcode::png($data, "/../disk/qr/".$img); // On crée notre QR Code
-
-                    header("location:admins?admins"); 
+                    header("location:home");
                 } 
-                else header("location:admins?admins"); ;
+                else header("location:home");
 
             }else{
-                header("location:admins?add"); 
+                header("location:home"); 
             }
         }
         else (new Login())->html();
@@ -103,8 +97,8 @@ if(isset($_SESSION['USER_UUID'])){
                 '_password'=> $password
             ]);
     
-            if( $admin['status'] == !0) (new AdministratorAdministrator([],"Donnée mise à jour avec succèss"));
-            else   (new AdministratorAdministrator([],"Echec  inserée avec succèss") );
+            if( $admin['status'] == !0) header("location:home"); 
+            else   header("location:home"); 
     
     
         }
@@ -120,8 +114,8 @@ if(isset($_SESSION['USER_UUID'])){
                 "_id" => intval($_GET['id']),
             ]);
     
-             if($admin['status'] == !0) (new AdministratorAdministrator((new Administrator())->_get()['data'],"Donnée supprimer "))->html();
-             else (new AdministratorAdministrator((new Administrator())->_get()['data'],"Echéc de suppression"))->html();
+             if($admin['status'] == !0) header("location:home"); 
+             else header("location:home"); 
 
         }
         else (new Login())->html();
@@ -140,10 +134,10 @@ if(isset($_SESSION['USER_UUID'])){
             ]);
     
             if($enable['status'] == !0){
-                header("location:admins?admins");
+                header("location:home"); 
             }
             else{
-                header("location:admins?admins");
+                header("location:home"); 
             }
         }
         else (new Login())->html();
@@ -162,10 +156,10 @@ if(isset($_SESSION['USER_UUID'])){
     
             if($disable['status'] == !0){
                 
-                header("location:admins?admins");                
+                header("location:home");                
             }
             else{
-                header("location:admins?admins");
+                header("location:home"); 
             }
         }
         else (new Login())->html();
@@ -217,12 +211,12 @@ if(isset($_POST['login'])){
 
         if($admin['user']['_access_level'] == "editor") {
             $_SESSION['USER_SUPER'] = "editor";
-            header("location:admins?admins"); 
+            header("location:home"); 
         }
         elseif($admin['user']['_access_level'] == "reader"){
             $_SESSION['USER_SUPER'] = "reader";
 
-           header("location:maps");
+           header("location:home");
         }
         else header("location:start");
 

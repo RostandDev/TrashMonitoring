@@ -197,7 +197,7 @@
                         'status' => !0,
                         'user' => [
                             '_uuid' => $data[0]['_uuid'],
-                            '_name' => $data[0]['_last_name'],
+                            '_last_name' => $data[0]['_last_name'],
                             '_first_name' => $data[0]['_first_name'],
                             '_email' => $data[0]['_email'],
                             '_access_level' => $data[0]['_access_level'],

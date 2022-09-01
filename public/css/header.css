@@ -1,40 +1,88 @@
 
+.header {
+    margin: 1%;
+    border-bottom: 0.5px #adacac solid;
+    
+}
+
+.header .btns{
+    display: flex;
+    justify-content: space-between;
+    width: 10%;
+    margin: auto;
+    margin-left: 80%;
+    padding: 1%;
+    
+}
+
+
+
+
 
 .dash{
     
-    display: flex;
-    justify-content: space-around;
-    width: 90%;
-    height: 50px;
-    margin: auto;
+    float: right;
+    border-left: 1px solid #ccc;
+    width: 15%;
+    height: 500px;  
     margin-top: 2%;
-    align-self: center;
     font-size: 22px;
     font-weight: 800;
-    /*border-bottom: 0.5px #adacac solid;*/
-    
     
     
 
 }
 
+.dash .part1, .container1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.part2 .driver{
+    padding: 2%;
+
+}
+.dash .part2 .driver{
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 6px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dash .part2 .driver:hover{
+    background-color: #ddd;
+}
+
+.dash .part2 .active{
+    background-color: #ccc;
+}
+
+.page{
+    float: left;
+    padding: 0px 12px;
+    width: 80%;
+    border-right: none;
+    height: 500px;
+    position: absolute;
+    display: none;
+}
+.activate{
+    display: block;
+}
 
 .logo img{
     width :80px;
     height:80px;
     border-radius: 54%;
-    margin-top: -18%;
+    margin-top: -25%;
 }
 
-
-.onglet{
-    border-left: 0.5px #adacac solid ;
-    color: black;
-    margin: auto;
-    padding-right: 6%;
-    width: 100%;
-    text-align: center;
-}
 
 .logout-btn{
     margin-right: 4px;

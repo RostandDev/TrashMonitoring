@@ -1,42 +1,40 @@
 <?php
 namespace views\administrator;
 use core\Page;
+use core\View;
 
 require_once "../core/autoloader.php";
 
 
 
-class Administrator extends Page {
+class Administrator extends View {
     private $_data;
+  
     public function __construct($_data = [])
     {
         parent::__construct($_data);
+
         $this->_data = $_data;
+        
     }
 
-    public function css()
-    {
-        parent::css();
-        ?>
-        <link rel="stylesheet" href="public/css/home.less">
 
-    <?php       
-    }
 
-    public function js()
-    {
-        parent::js();
-    }
 
-    public function body()
+    public function html()
     {
-        parent::body();
+        
          ?>
             
-           <div class="page">
+           <div class="page" id="users">
 
-           <div class="addbtn">
-                <a href="admins?add">Ajouter</a>
+           <div class="header">
+                       
+                <div class="btns">
+                        <div onclick="openForm('user');" ><a href="#" id="open"><i class="icofont-plus-circle"></i></a></div>
+                        <div><i class="icofont-trash"></i></div>
+                </div>
+                       
             </div>
             
             <table>
@@ -84,7 +82,64 @@ class Administrator extends Page {
                    ?>
                 </tbody>
             </table>
+
+            <div class="form useradd">
+                <div class="close" onclick="closeForm('user')">&times;</div>
+            <?php
+
+                $this->add();
+
+            ?>
+            </div>
            </div>
+
+        <?php
+    }
+
+
+
+    public function add()
+    {
+       
+         ?>
+           <h2> Ajouter un utilisateur </h2>
+          
+
+            <form action="admins" method="post">
+            <div> Nom </div>
+            <input type="text" name="_last_name" id="" placeholder="nom" required>
+
+            <div> Prenoms </div>
+            <input type="text" name="_first_name" id="" placeholder="prenoms" required>
+
+            <div> Email </div>
+            <input type="email" name="_email" id="" placeholder="email@gmail.com" required>
+            <div class="password">
+
+            
+            </div>
+            <div class="identifier">
+            <div>Identifiant</div>
+            <input type="text" name="_identifier" id="identifier" placeholder="toto47d" required>
+            
+            </div>
+
+            <div class="password">
+            <div>Password</div>
+            <input type="text" name="_password" id="password" required>
+            
+            </div>
+
+            <div class="submit">
+            
+            <input type="submit" name="insert" id="login" value="Ajouter" >
+            
+            </div>
+
+
+
+            </form>
+
         <?php
     }
 }

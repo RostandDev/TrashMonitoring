@@ -26,6 +26,7 @@ insert into t_administrators(_uuid, _last_name, _first_name, _email, _identifier
 create table t_trashs(
     _id bigint auto_increment not null,
     _uuid varchar(40) not null,
+    _name varchar(160) not null,
     _longitude text not null,
     _latitude text not null,
     _author bigint not null,
@@ -34,6 +35,7 @@ create table t_trashs(
     _updated_at datetime default now(),
     primary key(_id),
     constraint u_trashs_uuid unique(_uuid),
+    
     constraint fk_trashs_administrators foreign key(_author) references t_administrators(_id)
     
 ) engine = innodb default charset utf8 ;

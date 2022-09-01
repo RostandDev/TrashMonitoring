@@ -39,7 +39,10 @@ use core\Page;
             <div class="form">
             <form action="trashs" method="post">
                 <h2>Ajouter une nouvelle poubelle</h2>
-
+                <div class="longitude ">
+                    <div>Nom</div>
+                    <input type="text" name="_name" id="" placeholder="69565656f" required>
+                </div>
                 <div class="longitude ">
                     <div>Longitude</div>
                     <input type="text" name="_longitude" id="" placeholder="69565656f" required>
