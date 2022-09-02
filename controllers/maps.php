@@ -16,15 +16,28 @@ if(isset($_SESSION['USER_UUID'])){
         header('content-type: applicaton/json');
         
 
-        //$data = (new Trashstatus())->_get()['data'];
+        $data = [
+            "status" => !0,
+            "data" => (new Trashstatus())->_get()['data']
+        ];
 
-        echo json_encode($data, JSON_PRETTY_PRINT) ;
+        //echo json_encode($data) ;
 
-        //print_r(json_encode($data) ) ;
+        print_r(json_encode($data) ) ;
     }
 }
 else{
-    header("location:start");
+    header('content-type: applicaton/json');
+        
+
+    $data = [
+        "stutus" => !0,
+        "data" => (new Trashstatus())->_get()['data']
+    ];
+
+    //echo json_encode($data) ;
+
+    print_r(json_encode($data) ) ;
 }
 
 

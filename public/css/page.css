@@ -93,7 +93,8 @@ input[type=submit]{
     font-size: 20px;
 
 }
-.addbtn {
+.addbtn , input[type=button]{
+    cursor: pointer;
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;

@@ -21,14 +21,35 @@ session_start();
     use views\administrator\Administrator as AdministratorAdministrator;
     use views\administrator\Login;
 
+    
 
 if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_GET['admins'])   ){
         
         if($_SESSION['USER_SUPER'] == true){
-            if(isset($_GET['id'])) (new AdministratorAdministrator((new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data'],""))->html();
-            else (new AdministratorAdministrator((new Administrator())->_get()['data'],""))->html();
+           
+            if(isset($_GET['id'])) {
+                $data = [
+                    "status" => !0,
+                    "message" => "USERS",
+                    "data" => (new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data']
+                ];
+            }
+            
+         
+            else{
+                $data = [
+                    "status" => !0,
+                    "message" => "USERS",
+                    "data" => (new Administrator())->_get()['data']
+                ];
+        
+                
+            }
+
+            print_r(json_encode($data) ) ;
+
         }
         else (new Login())->html();
     }
@@ -64,15 +85,55 @@ if(isset($_SESSION['USER_UUID'])){
                 ]);
                 
                 if( $admin['status'] == !0){
-                    header("location:home");
+                    header('content-type: applicaton/json');
+        
+
+                    $data = [
+                        "status" => !0,
+                        "succes" => "SUCCESS",
+                        "data" => (new Admin())->_get()['data']
+                    ];
+            
+                    print_r(json_encode($data) ) ;
                 } 
-                else header("location:home");
+                else{
+                    header('content-type: applicaton/json');
+        
+
+                    $data = [
+                        "status" => !1,
+                        "error" => "DATA_ERROR",
+                        "data" => (new Admin())->_get()['data']
+                    ];
+            
+                    print_r(json_encode($data) ) ;
+                }
 
             }else{
-                header("location:home"); 
+                header('content-type: applicaton/json');
+        
+
+                $data = [
+                    "status" => !1,
+                    "error" => "EMAIL_ERROR",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
             }
         }
-        else (new Login())->html();
+        else {
+            header('content-type: applicaton/json');
+        
+
+            $data = [
+                "status" => !1,
+                "error" => "SESSION_EXPIRE",
+                "data" => (new Admin())->_get()['data']
+            ];
+    
+            print_r(json_encode($data) ) ;
+        }
 
     }
 

@@ -70,7 +70,7 @@
     border-right: none;
     height: 500px;
     position: absolute;
-    display: none;
+    display: block;
 }
 .activate{
     display: block;

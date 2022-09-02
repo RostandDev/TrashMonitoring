@@ -40,9 +40,17 @@ class Views extends Page {
     {
         
         parent::body();
+
+        ?>
+            
+
+
+        <?php
+
+        /*
         (new Maps())->html();
         (new Trash($this->_data['trashs']))->html();
-        (new Administrator($this->_data['users']))->html();
+        (new Administrator($this->_data['users']))->html();*/
         
     }
 }

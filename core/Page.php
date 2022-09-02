@@ -18,13 +18,9 @@ class Page extends View
     public function js()
     {
         ?>
-            <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-            crossorigin=""></script>
             
-            <script src="public/js/page.js"></script>
-            <script src="public/js/map.js"></script>
-
+           
+           
     
     <?php
         }
@@ -41,6 +37,9 @@ class Page extends View
             <link rel="stylesheet" href="public/css/page.css">
             <link rel="stylesheet" href="public/media/fonts/icofont/icofont.css">
             <link rel="stylesheet" href="public/media/fonts/icofont/icofont.min.css">
+            <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
             <title>Panel de controle</title>
             
         </head>
@@ -65,15 +64,24 @@ class Page extends View
                 </div> 
                 
                 <div class="part part2">
-                    <div class="driver active" onclick="page(event, 'maps')"><a href="#maps" >Cartes</a></div>
-                    <div class="driver  " onclick="page(event, 'trashs')"><a href="#poubelles">Poubelles</a></div>
-                    <?php if($_SESSION['USER_SUPER']=='editor') {?> <div class="driver " onclick="page(event, 'users')"><a href="#utilisateurs">Utilisateurs</a></div> <?php } ?>
+                    <div class="driver active" onclick="maps()"><a href="#maps" >Cartes</a></div>
+                    <div class="driver  " onclick="trashs()"><a href="#poubelles">Poubelles</a></div>
+                    <?php if($_SESSION['USER_SUPER']=='editor') {?> <div class="driver " onclick="users()"><a href="#utilisateurs">Utilisateurs</a></div> <?php } ?>
                 </div>
                     
                                                  
             </div>
-        
 
+            <div class="page">
+               
+            </div>
+        
+        </body>
+
+        
+        <script src="public/js/page.js"></script>
+        <script src="public/js/map.js"></script>
+        <script src="public/js/views.js"></script>
  <?php
     $this->js(); 
         
@@ -92,9 +100,15 @@ class Page extends View
                     <?php
                     $this->body();
 
-                    $this->js();
+                  
                 ?>
-                </body>
+               
+
+                <?php
+                    
+
+                   // $this->js();
+                ?>
             </html>
         <?php
     }

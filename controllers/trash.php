@@ -14,13 +14,32 @@ require_once("../core/autoloader.php");
 
 if(isset($_SESSION['USER_UUID'])){
     //Afficher les poubrlles
-
+    header('content-type: applicaton/json');
     if(isset($_GET['trashs']) && $_SESSION['USER_SUPER']){
 
         if(isset($_GET['id'])){
-            (new Trash())->html((new ModelsTrash())->_get()['data']);
+
+            $data = [
+                "status" => !0,
+                "message" => "les poubelles",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+    
+            print_r(json_encode($data) ) ;
+            
         }
-        else ((new Trash((new ModelsTrash())->_get()['data'],"")) )->html();
+        else{
+          
+        
+
+            $data = [
+                "status" => !0,
+                "message" => "Les poubelles",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+    
+            print_r(json_encode($data) ) ;
+        } 
 
     }
 

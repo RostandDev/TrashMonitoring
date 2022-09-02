@@ -105,34 +105,35 @@ class Administrator extends View {
            <h2> Ajouter un utilisateur </h2>
           
 
-            <form action="admins" method="post">
+            <form id="adminAdd" method="post">
             <div> Nom </div>
-            <input type="text" name="_last_name" id="" placeholder="nom" required>
+            <input type="text" name="_last_name" id="_last_name" placeholder="nom" required>
 
             <div> Prenoms </div>
-            <input type="text" name="_first_name" id="" placeholder="prenoms" required>
+            <input type="text" name="_first_name" id="_first_name" placeholder="prenoms" required>
 
             <div> Email </div>
-            <input type="email" name="_email" id="" placeholder="email@gmail.com" required>
+            <input type="email" name="_email" id="_email" placeholder="email@gmail.com" required>
             <div class="password">
 
             
             </div>
             <div class="identifier">
             <div>Identifiant</div>
-            <input type="text" name="_identifier" id="identifier" placeholder="toto47d" required>
+            <input type="text" name="_identifier" id="_identifier" placeholder="toto47d" required>
             
             </div>
 
             <div class="password">
             <div>Password</div>
-            <input type="text" name="_password" id="password" required>
+            <input type="text" name="_password" id="_password" required>
             
             </div>
 
             <div class="submit">
             
-            <input type="submit" name="insert" id="login" value="Ajouter" >
+
+            <input type="button" value="Envoyer" onclick="_insert('admins');" >
             
             </div>
 
