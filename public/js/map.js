@@ -8,15 +8,6 @@
         } 
 
 
-
-        function response(_data){
-           
-
-
-
-
-        }
-
         function _error(_data){
             console.log("_data");
         }
@@ -97,7 +88,7 @@
                     marker.bindPopup(`<b> Poubelle :${ _data.data[i]._name } </br> Niveau : ${ _data.data[i]._full_level }% </br> Adress :${ _data.data[i]._address } <b>`);
                 }
     
-                console.log(_data);
+                //console.log(_data);
 
             })
             

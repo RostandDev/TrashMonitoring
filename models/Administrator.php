@@ -61,11 +61,12 @@
 
         public function _update( array $_data){
 
-            $updated = $this-> _execute("UPDATE  t_administrators SET  _last_name = :_last_name, _first_name = :_first_name , _email = :_email, _identifier  = :_identifier, _password = :_password WHERE _id = :_id", 
+            $updated = $this-> _execute("UPDATE  t_administrators SET  _last_name = :_last_name, _first_name = :_first_name , _email = :_email, _identifier  = :_identifier, _password = :_password, _access_level = :_access_level WHERE _id = :_id", 
             [
                 ":_id" => $_data['_id'],
                 ':_last_name' => $_data['_last_name'],
                 ':_first_name' => $_data['_first_name'],
+                ':_access_level' => $_data['_access_level'],
                 ':_email' => $_data['_email'],
                 ':_identifier' => $_data['_identifier'],
                 ':_password' => $_data['_password']

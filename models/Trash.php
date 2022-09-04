@@ -69,14 +69,18 @@ class Trash extends DB{
     
     public function _delete($_id){
         
+        $status = $this -> _query(" SELECT COUNT(_id) AS _count FROM t_trashStatus WHERE _trash = $_id ");
+
+        if(count($status['data'][0]['_count']) > 0) $this -> _query(" DELETE FROM t_trashStatus WHERE _trash = $_id ");
+        
         $data = $this -> _query(" DELETE FROM t_trashs WHERE _id = $_id ");
 
-        if($data['status'] == !0){
+        if($data){
             return [
                 'status' => !0,
                 'id' => $_id
             ];
-            echo "toto yes"; 
+            
         }
         else return ['status' => !1];
     }

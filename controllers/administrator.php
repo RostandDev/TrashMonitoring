@@ -155,11 +155,34 @@ if(isset($_SESSION['USER_UUID'])){
                 '_first_name'=>htmlspecialchars($_POST['_first_name']),
                 '_email'=>$email, 
                 '_identifier' => htmlspecialchars($_POST['_identifier']), 
-                '_password'=> $password
+                '_password'=> $password,
+                '_access_level' => htmlspecialchars($_POST['_access_level'])
             ]);
     
-            if( $admin['status'] == !0) header("location:home"); 
-            else   header("location:home"); 
+            if( $admin['status'] == !0){
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !0,
+                    "succes" => "SUCCESS",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            } 
+            else{
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !1,
+                    "error" => "DATA_ERROR",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            }
     
     
         }
@@ -175,8 +198,30 @@ if(isset($_SESSION['USER_UUID'])){
                 "_id" => intval($_GET['id']),
             ]);
     
-             if($admin['status'] == !0) header("location:home"); 
-             else header("location:home"); 
+            if( $admin['status'] == !0){
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !0,
+                    "succes" => "SUCCESS",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            } 
+            else{
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !1,
+                    "error" => "DATA_ERROR",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            }
 
         }
         else (new Login())->html();
@@ -189,16 +234,34 @@ if(isset($_SESSION['USER_UUID'])){
     if(isset($_GET['enable'])){
 
         if($_SESSION['USER_SUPER'] == 'editor'){
-            echo 'ok';
+            
             $enable = (new Administrator())->_enable_admin([
                 "_id"=> htmlspecialchars($_GET['id'])
             ]);
     
-            if($enable['status'] == !0){
-                header("location:home"); 
-            }
+            if( $enable['status'] == !0){
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !0,
+                    "succes" => "SUCCESS",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            } 
             else{
-                header("location:home"); 
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !1,
+                    "error" => "DATA_ERROR",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
             }
         }
         else (new Login())->html();
@@ -215,23 +278,34 @@ if(isset($_SESSION['USER_UUID'])){
                 "_id"=> htmlspecialchars($_GET['id'])
             ]);
     
-            if($disable['status'] == !0){
-                
-                header("location:home");                
-            }
+            if( $disable['status'] == !0){
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !0,
+                    "succes" => "SUCCESS",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
+            } 
             else{
-                header("location:home"); 
+                header('content-type: applicaton/json');
+    
+
+                $data = [
+                    "status" => !1,
+                    "error" => "DATA_ERROR",
+                    "data" => (new Admin())->_get()['data']
+                ];
+        
+                print_r(json_encode($data) ) ;
             }
         }
         else (new Login())->html();
 
     }
-
-    if(isset($_GET['add'])  ){
-        if($_SESSION['USER_SUPER'] == "editor") (new Add())->html();
-        else (new AdministratorAdministrator([],"Echec "))->html(); 
-    }
-
 
     if(isset($_GET['disconnecte'])  ){
 
@@ -286,5 +360,50 @@ if(isset($_POST['login'])){
         header("location:start");
     }
 
-    
+   
 }
+
+
+
+
+
+
+    if(isset($_GET['fakers'])){
+      
+        for($i=0; $i<500; $i++){
+
+        
+
+        
+            $uuid = (new Uuid())->_uuid();
+            $password = (new Password())->_hash("faker-name".$i);
+    
+
+                $admin = (new Admin())->_insert([
+                    '_uuid'=> $uuid,
+                    '_last_name'=> "faker-lname".$i,
+                    '_first_name'=>"faker-fname".$i,
+                    '_email'=>"faker-mail".$i."@gmail.com", 
+                    '_identifier' => "faker-identifer".$i, 
+                    '_password'=> $password
+
+                ]);
+                
+                if( $admin['status'] == !0){
+                    
+                    echo 'créé';
+                } 
+                else{
+                    
+        
+
+                    $data =  (new Admin())->_get()['data'];
+
+            
+                    print_r(json_encode($data) ) ;
+                }
+       
+        }
+    }
+
+ 

@@ -22,7 +22,7 @@ if(isset($_SESSION['USER_UUID'])){
             $data = [
                 "status" => !0,
                 "message" => "les poubelles",
-                "data" => (new ModelsTrash())->_get()['data']
+                "data" => (new ModelsTrash())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data']
             ];
     
             print_r(json_encode($data) ) ;
@@ -60,9 +60,22 @@ if(isset($_SESSION['USER_UUID'])){
         ]);
 
         if($insert['status']== !0) {
-            header('location:home');
+            $data = [
+                "status" => !0,
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+    
+           
         }
-        else ("Echec d'enregistrer"); 
+        else {
+            $data = [
+                "status" => !1,
+                "error" => "DATA_ERROR",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+        } 
+
+        print_r(json_encode($data) ) ;
 
 
     }
@@ -70,21 +83,34 @@ if(isset($_SESSION['USER_UUID'])){
     //Mettre à jour une poubelle
 
     if(isset($_POST['update'])){
-
-  
     
         $insert =  (new ModelsTrash())->_update([
             '_uuid' => (new Uuid())->_uuid(),
             '_longitude' => htmlspecialchars($_POST['_longitude']),
             '_latitude' => htmlspecialchars($_POST['_latitude']),
             '_address' => htmlspecialchars($_POST['_address']),
+            '_name' => htmlspecialchars($_POST['_name']),
             '_author' =>intval(htmlspecialchars($_SESSION['USER_ID'])),
             '_id' => htmlspecialchars($_POST['_id'])
         ]);
     
-        if($insert['status']== !0) ((new Trash((new ModelsTrash())->_get()['data'],"Donnée Mise à jour")) )->html();
-        else (new Update((new ModelsTrash())->_get_by_id(intval(htmlspecialchars($_POST['_id'])))['data'],'Echec d\enregistrer'))->html(); 
+        if($insert['status']== !0) {
+            $data = [
+                "status" => !0,
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
     
+           
+        }
+        else {
+            $data = [
+                "status" => !1,
+                "error" =>"DATA_ERROR",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+        } 
+
+        print_r(json_encode($data) ) ;
         
     
     }
@@ -102,10 +128,25 @@ if(isset($_SESSION['USER_UUID'])){
     if(isset($_GET['delete'])){
 
 
-    $delete = (new ModelsTrash())->_delete(intval(htmlspecialchars($_GET['id'])));
+        $delete = (new ModelsTrash())->_delete(intval(htmlspecialchars($_GET['id'])));
 
-        if($delete['status'] == !1) ((new Trash((new ModelsTrash())->_get()['data'],"Donnée supprimée")) )->html();
-        else  ((new Trash((new ModelsTrash())->_get()['data'],"Echec de  suppression")) )->html();
+        if($delete['status'] == !0) {
+            $data = [
+                "status" => !0,
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+    
+           
+        }
+        else {
+            $data = [
+                "status" => !1,
+                "error" =>"DATA_ERROR",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+        } 
+
+        print_r(json_encode($data) ) ;
 
 
     }
