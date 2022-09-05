@@ -1,7 +1,6 @@
 #maps { 
-    height: 850px; 
+    height: 100%; 
     width: 100%;
     text-align: center;
     margin: auto;
-    margin-top:1%;
 }

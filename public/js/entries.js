@@ -80,9 +80,24 @@
 
             let req = _postRequest('trashs',data);
 
-
             req.then((_data)=>{
                trashs();
             })
+        }
+
+
+        function _groupedeleting(_url, _data){                            
+            let del = 0;
+            for(let i=0; i< _data.length; i++){
+                                  
+                   let req = _getRequest(_url+"?delete&id="+_data[i]);
+
+                   req.then((_data) =>{
+                     del++;
+                   });
+                   
+            }
+
+            return [del];
         }
 

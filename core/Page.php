@@ -85,6 +85,7 @@ class Page extends View
         <script src="public/js/map.js"></script>
         <script src="public/js/views.js"></script>
         <script src="public/js/entries.js"></script>
+        <script src="public/js/user.js"></script>
         <script src="public/js/main.js"></script>
  <?php
     $this->js(); 

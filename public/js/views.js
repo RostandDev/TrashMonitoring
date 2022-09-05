@@ -1,113 +1,105 @@
 
-    let pages = document.querySelector('.page');
+   let pages = document.querySelector('.page');
 
+    let container = document.getElementById('u_table');
 
-    trashs = () =>{
-
-        let tab = document.createElement('table');
-        let thead =  document.createElement('thead');
-        let tbody =  document.createElement('tbody');
-        let numth =  document.createElement('th'); 
-        numth.innerHTML = 'Num';
-        let name_th =  document.createElement('th'); 
-        name_th.innerHTML ='Name';
-
-        let latitude_th =  document.createElement('th'); 
-        latitude_th.innerHTML = 'Latitude';
-        let longitude_th =  document.createElement('th'); 
-        longitude_th.innerHTML = 'Longitude';
-        let address_th =  document.createElement('th'); 
-        address_th.innerHTML = 'Adresse';
-        let headtr =  document.createElement('tr'); 
-        let bodytr =  document.createElement('tr'); 
-
-        headtr.appendChild(numth);
-        headtr.appendChild(name_th);
-        headtr.appendChild(latitude_th);
-        headtr.appendChild(longitude_th);
-        headtr.appendChild(address_th);
-
-
-        thead.appendChild(headtr);
-        //tbody.appendChild(bodytr);
-
-        tab.appendChild(thead);
-        tab.appendChild(tbody);
-
-
+    display_trash = (_start, _end)=>{
         
-        
-       
-        let req =  _getRequest('trashs?trashs');
+        let req = _getRequest('trashs?trashs');
+        req.then(data=>{
+        let tr = '';
+        let _data = data.data;
 
-        req.then((_data) =>{
 
-            if(pages.children.length !== 0){
-                pages.innerHTML='';
+        document.getElementById('u_table').innerHTML ='';
+            for( let n = _start; n < _end; n++){
+               
+                tr += `
+                <tr>
+                    <td id='t-check'><input type='checkbox'  id="datacheck" value="${_data[n]._id}"></td>
+                    <td>${n+1}</td>
+                    <td>${_data[n]._name}</td>
+                    <td>${_data[n]._latitude}</td>
+                    <td>${_data[n]._longitude}</td>
+                    <td>${_data[n]._address}</td>
+                    
+                    <td >
+                        <i id="trashupdate" class="icofont-ui-edit" _id="${_data[n]._id}"></i>
+                        
+                    </td>
+                    <td >
+                        <i id="trashdelete" class="icofont-trash" _id="${_data[n]._id}"></i>
+                    </td>
                 
-            } 
+                </tr>
+                `; 
 
-            pages.appendChild(_header('trash'));
-            pages.appendChild(tab);
-            pages.appendChild(trashform());
-            pages.appendChild(trash_updateform());
-            
+            }
+            document.getElementById('u_table').innerHTML = tr;
 
-            for (let i in _data.data ) {
-                
-                let tr= document.createElement('tr');
-
-                
-
-                let numtd =  document.createElement('td'); 
-                numtd.innerHTML = i;
-                let name_td =  document.createElement('td'); 
-                name_td.innerHTML =_data.data[i]._name;
-        
-                let latitude_td =  document.createElement('td'); 
-                latitude_td.innerHTML = _data.data[i]._latitude;
-                let longitude_td =  document.createElement('td'); 
-                longitude_td.innerHTML =_data.data[i]._longitude;
-                let address_td =  document.createElement('td'); 
-                address_td.innerHTML = _data.data[i]._address;
-
-                let btn_td =  document.createElement('td'); 
-                btn_td.id = "btn";
-
-                let update_btn = document.createElement('i');
-                update_btn.id = 'trashupdate'
-                update_btn.className = "icofont-ui-edit";
-                update_btn.setAttribute("_id",_data.data[i]._id);
-
-                let delete_btn = document.createElement('i');
-                delete_btn.id = "trashdelete";
-                delete_btn.className = "icofont-trash";
-                delete_btn.setAttribute("_id",  _data.data[i]._id)
-
-                btn_td.appendChild(update_btn);
-                btn_td.appendChild(delete_btn);
-
-                tr.appendChild(numtd);
-                tr.appendChild(name_td);
-                tr.appendChild(latitude_td);
-                tr.appendChild(longitude_td);
-                tr.appendChild(address_td);
-                tr.appendChild(btn_td);
-
-                tbody.appendChild(tr);
-
-
-            }            
 
             let _open = document.getElementById("open");
             let _close =  document.querySelectorAll('.close');
             let _add = document.querySelector('#trashadd');
-
+            let _max_delte = document.querySelector(".max-delete");
             let _update = document.querySelectorAll('#trashupdate');
             let u_update = document.querySelector('#t_update');
-
-
             let _delete = document.querySelectorAll("#trashdelete");
+            let close_max_delte = document.querySelector(".close-max-delete");
+            let delete_check = document.querySelector('#alldelete');
+
+            let _checkbox = document.querySelectorAll("#datacheck");
+            
+
+            delete_check.onclick = ()=>{
+                
+                
+                let data = [];
+                for(let i=0; i< _checkbox.length; i++){
+
+                    if(_checkbox[i].checked){
+                      
+                        data[i] = _checkbox[i].value;
+
+                       
+                    }
+
+                }
+
+
+                let del = _groupedeleting("trashs", data);
+                console.log(del);
+
+                alert(del+" Poubelles supprimées");
+            }
+
+            _max_delte.onclick = ()=>{
+                
+  
+                _max_delte.style.display = 'none';
+                close_max_delte.style.display = 'block';
+                
+                t_check=document.querySelectorAll('#t-check');
+                
+                for(let inner = 0; inner <t_check.length; inner++){
+                    delete_check.style.display = 'block';
+                    t_check[inner].style.display = 'block';
+                }
+            }
+
+            close_max_delte.onclick = ()=>{
+                
+                close_max_delte.style.display = 'none';
+                _max_delte.style.display = 'block';
+
+                delete_check.style.display = 'none';
+                
+                t_check=document.querySelectorAll('#t-check');
+                
+                for(let inner = 0; inner <t_check.length; inner++){
+                    t_check[inner].style.display = 'none';
+                }
+            }
 
             for(let i=0; i<_delete.length; i++){
                 _delete[i].onclick = ()=>{
@@ -146,14 +138,12 @@
                             document.querySelector('#u_id').value = _data.data[i]._id;
                            // document.querySelector('#_').value = _data[i]._;
                         }    
-
                         
                     })
                
                     document.querySelector('.trashupdate').style.display = "block";
                 }
             }
-
 
             u_update.onclick = ()=>{
                 _updateTrash();
@@ -177,214 +167,81 @@
             _open.onclick = ()=>{
                 document.querySelector('.trashadd').style.display = "block";
             }
-
-            
         })
-
-
         
+
     }
 
-    users = () =>{
 
-
+    trashs = () =>{
 
         let tab = document.createElement('table');
-        let thead =  document.createElement('thead');
-        let tbody =  document.createElement('tbody');
-        let numth =  document.createElement('th'); 
-        numth.innerHTML = 'Num';
-        let last_name_th =  document.createElement('th'); 
-        last_name_th.innerHTML ='Nom';
+        let tab_content = `
+            <thead>
+                <tr>
+                    <th id ='t-check'>Choisir</th>
+                    <th>Num</th>
+                    <th>Nom</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Adresse</th>
+                    
+                    
+                </tr>
+            </thead>
+            <tbody id="u_table" >
 
-        let first_name_th =  document.createElement('th'); 
-        first_name_th.innerHTML = 'Prenoms';
-
-        let emailth =  document.createElement('th'); 
-        emailth.innerHTML = 'Email';
-
-        let droitth =  document.createElement('th'); 
-        droitth.innerHTML = 'Droit';
-
-        let headtr =  document.createElement('tr'); 
-        let bodytr =  document.createElement('tr'); 
-
-
-
-        headtr.appendChild(numth);
-        headtr.appendChild(last_name_th);
-        headtr.appendChild(first_name_th);
-        headtr.appendChild(emailth);
-        headtr.appendChild(droitth);
-
-
-        thead.appendChild(headtr);
-
-        tab.appendChild(thead);
-        tab.appendChild(tbody);
+            </tbody>
+            <tfoot>
+                <tr id="navs">
+                    <td id="prev" class="icofont-arrow-left"></div>
+                    <td id="loading"> Loading ... </td>
+                    <td id="next" class="icofont-arrow-right"></div>
+                </tr>
+            </tfoot>
+        `;
+        tab.innerHTML = tab_content;
 
 
-        
-        
-       
-        let req =  _getRequest('admins?admins');
+      
 
-        req.then((_data) =>{
+            if(pages.children.length !== 0) pages.innerHTML = '';
 
-            if(pages.children.length !== 0){
-                pages.innerHTML='';
-                
-            } 
-
-            pages.appendChild(_header('user'));
+            pages.appendChild(_header('trash'));
             pages.appendChild(tab);
-            pages.appendChild(userform());
-            pages.appendChild(user_updataform());
-
+            pages.appendChild(trashform());
+            pages.appendChild(trash_updateform());
             
             
-
-
-
-            for (let i in _data.data ) {
-                
-                let tr= document.createElement('tr');
-
-                
-
-                let numtd =  document.createElement('td'); 
-                numtd.innerHTML = i;
-                let last_name_td =  document.createElement('td'); 
-                last_name_td.innerHTML =_data.data[i]._last_name;
-        
-                let first_name_td =  document.createElement('td'); 
-                first_name_td.innerHTML = _data.data[i]._first_name;
-
-                let emailtd =  document.createElement('td'); 
-                emailtd.innerHTML =_data.data[i]._email;
-
-                let droittd =  document.createElement('td'); 
-
-                _data.data[i]._access_level == 'reader' ? droittd.innerHTML='Utilisateur' :droittd.innerHTML = 'Administrateur';
-
-
-
-
-                let btn_td =  document.createElement('td'); 
-                btn_td.id = "btn";
-
-                let update_btn = document.createElement('i');
-                update_btn.id = 'userupdate'
-                update_btn.className = "icofont-ui-edit";
-                update_btn.setAttribute("_id",_data.data[i]._id);
-
-                let delete_btn = document.createElement('i');
-                delete_btn.id = "userdelete";
-                delete_btn.className = "icofont-trash";
-                delete_btn.setAttribute("_id",  _data.data[i]._id);
-
-                btn_td.appendChild(update_btn);
-                btn_td.appendChild(delete_btn);
-                
-
-                tr.appendChild(numtd);
-                tr.appendChild(last_name_td);
-                tr.appendChild(first_name_td);
-                tr.appendChild(emailtd);
-                tr.appendChild(droittd);
-                tr.appendChild(btn_td); 
-
-                tbody.appendChild(tr);
-
-
-            }
-
             
-                let _open = document.getElementById("open");
-                let _close =  document.querySelectorAll('.close');
 
-                let _add = document.querySelector('#useradd');
 
-                let _update = document.querySelectorAll('#userupdate');
-                let u_update = document.querySelector('#u_update');
-                let _delete = document.querySelectorAll("#userdelete");
+    let start =0;
+    let end = 50;
+    display_trash(start,end);
+    document.querySelector('#loading').style.display = 'none';
 
-                for(let i=0; i<_delete.length; i++){
-                    _delete[i].onclick = ()=>{
-                        if(confirm("Voules vous supprimer cet utilisateur ?")){
-
-                            let id = _delete[i].getAttribute("_id");
-
-                            let req = _getRequest("admins?delete&id="+id);
     
-                            req.then((_data)=>{
-                                if(_data.status == !0){
-                                    users();
-                                }
-                            })
-                        }
-                    }
-                }
+    document.getElementById("next").onclick = ()=>{
 
-                for(let i=0; i<_update.length; i++){
-                    _update[i].onclick = () =>{
-                        let id = _update[i].getAttribute("_id");
-
-                        let req = _getRequest("admins?admins&id="+id);
-                        req.then((_data)=>{
-                            if(_data.status == !0){
-                                for (let i in _data.data ) {
-                                document.querySelector('#u_last_name').value = _data.data[i]._last_name;
-                                document.querySelector('#u_first_name').value = _data.data[i]._first_name;
-                                document.querySelector('#u_email').value = _data.data[i]._email;
-                                document.querySelector('#u_identifier').value = _data.data[i]._identifier;
-                                //document.querySelector('#u_password').value = _data.data[i]._password;
-                                document.querySelector('#u_id').value = _data.data[i]._id;
-                                }
-                            }
-                            //console.log(_data);
-                        })
-                        document.querySelector('.userupdate').style.display = "block";
-                    }
-                }
-
-
-                u_update.onclick = ()=>{
-                    _updateUser();
-                }
-                _add.onclick = ()=>{
-                   _insertUser();
-                } 
-
-                _close[0].onclick = ()=>{
-                    
-                    document.querySelector('.useradd').style.display = "none";
-                }
-
-                _close[1].onclick = ()=>{
-                    document.querySelector('.userupdate').style.display = "none";
-                    
-                }
-
-                _open.onclick = ()=>{
-                    document.querySelector('.useradd').style.display = "block";
-                }    
-            
-        })
-  
-
+        start +=50;
+        end += 50;
+        document.querySelector('#loading').style.display = 'block';
+        display_trash(start, end );
+        document.querySelector('#loading').style.display = 'none';
 
     }
 
-
-
-
-
+    document.getElementById("prev").onclick = ()=>{
+        start -=50;
+        end -= 50; 
+        document.querySelector('#loading').style.display = 'block';
+        display_trash(start, end );
+        document.querySelector('#loading').style.display = 'none';
+        
+    }
 
     
-
-
-    
-
-
+        
+}
 

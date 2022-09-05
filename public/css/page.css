@@ -24,14 +24,18 @@ body {
     font-size: 20px; 
     font-weight: 400;    
     background-color: #f5f6fa;
+    
+}
+
+#alldelete{
+    color: #e85347;
+
 }
 
 
 
-
 .logout-btn a:hover{
-    color: #f44336; /* Green */
-    
+    color: #f44336; /* Green */    
     
 }
 
@@ -84,7 +88,7 @@ form{
     from{transform: scale(0)}
     to{transform: scale(1)}
 }
-input{
+input, select{
     width: 80%;
     padding: 10px;
     margin: 5px 0 22px 0;
@@ -152,6 +156,7 @@ table{
     margin-top: 1%;
     align-self: center;
     text-align: center;
+    overflow: auto;
 }
 th{
     font-size: 20px;
@@ -164,7 +169,17 @@ table #btn{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    
 
+}
+
+table  #t-check{
+    display: none;
+}
+
+tfoot #navs{
+    display: flex;
+    justify-content: space-between;
 }
 
 table #userupdate , #trashupdate{
@@ -173,6 +188,9 @@ table #userupdate , #trashupdate{
 
 table #userdelete , #trashdelete{
     color: #e85347;
+}
+tbody #loading{
+   
 }
 
 td, th{

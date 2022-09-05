@@ -60,9 +60,10 @@
     float: left;
     width: 83%;
     border-right: none;
-    height: 500px;
+    height: 100%;
     position: absolute;
     display: block;
+    
 }
 
 .logo img{

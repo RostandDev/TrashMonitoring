@@ -164,6 +164,44 @@ if(isset($_SESSION['USER_UUID'])){
 
 
 
+    if(isset($_GET['fakers'])){
+      
+        for($i=0; $i<100; $i++){
+
+        
+
+            $insert =  (new ModelsTrash())->_insert([
+                '_uuid' => (new Uuid())->_uuid(),
+                '_longitude' => rand(1000,9000),
+                '_latitude' => rand(1000,9000),
+                '_name' => 'faker-tname',
+                '_address' => 'faker-taddress',
+                '_author' => intval(htmlspecialchars($_SESSION['USER_ID']))
+            ]);
+    
+            if($insert['status']== !0) {
+                $data = [
+                    "status" => !0,
+                    "data" => (new ModelsTrash())->_get()['data']
+                ];
+        
+               
+            }
+            else {
+                $data = [
+                    "status" => !1,
+                    "error" => "DATA_ERROR",
+                    "data" => (new ModelsTrash())->_get()['data']
+                ];
+            } 
+    
+            print_r(json_encode($data) ) ;
+    
+       
+        }
+    }
+
+
 
 }
 else{

@@ -376,15 +376,15 @@ if(isset($_POST['login'])){
 
         
             $uuid = (new Uuid())->_uuid();
-            $password = (new Password())->_hash("faker-name".$i);
+            $password = (new Password())->_hash("faker-name".$i*2);
     
 
                 $admin = (new Admin())->_insert([
                     '_uuid'=> $uuid,
-                    '_last_name'=> "faker-lname".$i,
-                    '_first_name'=>"faker-fname".$i,
-                    '_email'=>"faker-mail".$i."@gmail.com", 
-                    '_identifier' => "faker-identifer".$i, 
+                    '_last_name'=> "faker-lname".($i*2),
+                    '_first_name'=>"faker-fname".($i*2),
+                    '_email'=>"faker-mail".($i*2)."10@gmail.com", 
+                    '_identifier' => "faker-identifer10".($i*2), 
                     '_password'=> $password
 
                 ]);
