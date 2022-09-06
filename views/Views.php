@@ -47,10 +47,7 @@ class Views extends Page {
 
         <?php
 
-        /*
-        (new Maps())->html();
-        (new Trash($this->_data['trashs']))->html();
-        (new Administrator($this->_data['users']))->html();*/
+
         
     }
 }

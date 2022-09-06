@@ -9,10 +9,13 @@
                    
             xhr.onreadystatechange =  () =>{
                     
-                if(xhr.readyState == 4 && xhr.status == 200){
-                    _resp(JSON.parse(xhr.responseText));
+                if(xhr.readyState == 4  ){
+                    if(xhr.status == 200) _resp(JSON.parse(xhr.responseText));
+                    if(xhr.status == 500) _fail("INTERNAL ERROR");
+                    
                                     
-                }
+                }      
+                
                 
                 
             }
@@ -37,9 +40,9 @@
                            
             xhr.onreadystatechange =  () =>{
                             
-                if(xhr.readyState == 4 && xhr.status == 200){
-                    _resp(JSON.parse(xhr.responseText));
-                                                
+                if(xhr.readyState == 4 ){
+                    if(xhr.status == 200) _resp(JSON.parse(xhr.responseText));
+                    if(xhr.status == 500) _fail("INTERNAL ERROR");                                                
                 }
             }
                             

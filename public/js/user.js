@@ -1,19 +1,36 @@
 ( ()=>{
     let pages = document.querySelector('.page');
 
-display_user = (_start, _end)=>{
+    display_user = (_start, _end)=>{
     
     let req = _getRequest('admins?admins');
     req.then(data=>{
+        
     let tr = '';
     let _data = data.data;
 
+    if(_end >_data.length){
+        _end = _data.length 
+        document.querySelector("#next").style.display  = 'none';
+    }
+    else{
+        document.querySelector("#next").style.display  = 'block';
+    } 
+
+
+    if(_start < 50){
+
+        document.querySelector("#prev").style.display  = 'none';
+    }
+    else{
+        document.querySelector("#prev").style.display  = 'block';
+    } 
 
     document.getElementById('u_table').innerHTML ='';
         for( let n = _start; n < _end; n++){
            
             let level ='';
-            (_data[n]._access_level == 'editor') ? level ='Administrateur' : level = 'Utilisateur';
+            (_data[n]._access_level === 'editor') ? level ='Editeur' : level = 'Lecteur';
             tr += `
             <tr>
                 <td id='t-check'><input type='checkbox'  id="datacheck" value="${_data[n]._id}"></td>
@@ -55,22 +72,27 @@ display_user = (_start, _end)=>{
 
         delete_check.onclick = ()=>{
             
+            if(confirm('Voulez vvous supprimer ces  utilisateurs ?')){
+                let del=0;
             
-            let del = 0;
-            for(let i=0; i< _checkbox.length; i++){
-                if(_checkbox[i].checked){                   
-
-                   let data = _getRequest("trashs?delete&id="+_checkbox[i].value);
-
-                   req.then(()=>{
-                        trashs();
-                   });
-                   del++;
+                for(let i=0; i< _checkbox.length; i++){
+                    if(_checkbox[i].checked){                   
+    
+                       let req = _getRequest("admins?delete&id="+_checkbox[i].value);
+    
+                       req.then(()=>{
+                            _message('Utilisateur '+ _checkbox[i].value+'supprimée') ;
+                            users();
+                       });
+                       del++;
+                    }
+    
                 }
-
+    
+                if(del) _message(del + " Poubelles supprimées");
             }
-
-            alert(del+" Poubelles supprimées");
+            
+    
         }
 
         _max_delte.onclick = ()=>{
@@ -110,7 +132,13 @@ display_user = (_start, _end)=>{
                     let req = _getRequest("admins?delete&id="+id);
 
                     req.then((_data)=>{
-                        if(_data.status == !0){
+                        if(_data.status == !1){
+                            if(_data.error == 'SESSION_EXPIRE') _getRequest("admins?disconnecte");
+
+                            _message("Erreur de donnée, utilisateur inexistant(e)");
+                        }
+                        else if(_data.status == !0){
+                            _message("utilisateur supprimé(e)");
                             users();
                         }
                     })
@@ -181,6 +209,9 @@ users = () =>{
             <th>Prenons</th>
             <th>Email</th>
             <th>Droit d'accès</th>
+            <th></th>
+            <th></th>
+
             
             
         </tr>

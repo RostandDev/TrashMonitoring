@@ -27,12 +27,44 @@ body {
     
 }
 
+.main{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    overflow: hidden;
+}
+.params{
+    align-self: flex-end;
+}
+
 #alldelete{
     color: #e85347;
+    position: fixed;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+#message{
+    
+    margin: 1%;
+    padding: 1%;
+    text-align: center;
+    width: 50%;   
+    font-weight: bold;
+    background-color: #20c997;
+    opacity: 0.5;
+    color: black;
+    
 
 }
 
-
+.message{
+    position: fixed;
+    margin: auto;
+    align-self: auto;
+    text-align: center;
+    width: 100%;
+}
 
 .logout-btn a:hover{
     color: #f44336; /* Green */    
@@ -149,11 +181,9 @@ input[type=button]{
 
 
 table{
-    font-size: 16px;
-    padding: 1%;
+    font-size: 14px;
     width: 100%;
     margin: auto;
-    margin-top: 1%;
     align-self: center;
     text-align: center;
     overflow: auto;
@@ -189,18 +219,24 @@ table #userupdate , #trashupdate{
 table #userdelete , #trashdelete{
     color: #e85347;
 }
-tbody #loading{
-   
-}
 
-td, th{
-    padding: 15px;
-    cursor: pointer;
+thead{
+    background-color:#20c997;
     
 }
+td, th{
+    padding: 15px;
+       
+}
+
 
 tr:nth-child(even){
     background-color: #f1f1f1;
     
     
+}
+
+tr:hover{
+    cursor: pointer;
+    background-color: #8091a7;
 }

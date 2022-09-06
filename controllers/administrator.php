@@ -27,7 +27,7 @@ if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_GET['admins'])   ){
         
-        if($_SESSION['USER_SUPER'] == true){
+        if($_SESSION['USER_SUPER'] == "editor"){
            
             if(isset($_GET['id'])) {
                 $data = [
@@ -48,21 +48,22 @@ if(isset($_SESSION['USER_UUID'])){
                 
             }
 
-            print_r(json_encode($data) ) ;
+           
 
         }
-        else (new Login())->html();
+        else  $data = [
+            "status" => !1,
+            "error" => "ACCESS_DENIED",
+
+        ];
+
+        print_r(json_encode($data) ) ;
     }
 
-    if(isset($_GET['account'])   ){
-        
-            if(isset($_GET['id'])) (new Account((new Administrator())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data'],""))->html();
-            else (new Login())->html();
-    }
-
-
-
+    //demande de la page de conexion
     if(isset($_GET['login'])) (new Login())->html();
+
+    //insertion d'utilisateur
 
     if(isset($_POST['insert'])){
 
@@ -128,8 +129,7 @@ if(isset($_SESSION['USER_UUID'])){
 
             $data = [
                 "status" => !1,
-                "error" => "SESSION_EXPIRE",
-                "data" => (new Admin())->_get()['data']
+                "error" => "ACCESS_DENID",
             ];
     
             print_r(json_encode($data) ) ;
@@ -143,7 +143,7 @@ if(isset($_SESSION['USER_UUID'])){
 
 
 
-        if($_SESSION['USER_SUPER'] == true){
+        if($_SESSION['USER_SUPER'] == 'editor'){
             $password = (new Password())->_hash(htmlspecialchars($_POST['_password']));
 
             $email = htmlspecialchars($_POST['_email']);
@@ -186,13 +186,17 @@ if(isset($_SESSION['USER_UUID'])){
     
     
         }
-        else (new Login())->html();
+        else  $data = [
+            "status" => !1,
+            "error" => "ACCESS_DENIED",
+
+        ];
 
 
     }
 
     if(isset($_GET['delete'])){
-        if($_SESSION['USER_SUPER'] == true){
+        if($_SESSION['USER_SUPER'] == "editor"){
 
             $admin = (new Admin())->_delete([ 
                 "_id" => intval($_GET['id']),
@@ -224,12 +228,16 @@ if(isset($_SESSION['USER_UUID'])){
             }
 
         }
-        else (new Login())->html();
+        else  $data = [
+            "status" => !1,
+            "error" => "ACCESS_DENIED",
+
+        ];
 
 
     }
 
-
+/*
 
     if(isset($_GET['enable'])){
 
@@ -305,7 +313,7 @@ if(isset($_SESSION['USER_UUID'])){
         }
         else (new Login())->html();
 
-    }
+    }*/
 
     if(isset($_GET['disconnecte'])  ){
 
@@ -366,6 +374,7 @@ if(isset($_POST['login'])){
 
 
 
+//generer des fakers
 
 
     if(isset($_GET['fakers'])){

@@ -1,6 +1,6 @@
 
 .header {
-    margin-top: 1%;
+
     border-bottom: 0.5px #adacac solid;
     
 }
@@ -17,11 +17,12 @@
 
 .dash{
     
-    float: right;
+    position: fixed;
     border-left: 1px solid #ccc;
     width: 15%;
-    height: 100%;  
-    margin-top: 2%;
+    height: 800px;  
+    margin-left: 1%;
+    padding-left: 1%;
     font-size: 22px;
     font-weight: 800;
 }
@@ -58,12 +59,11 @@
 
 .page{
     float: left;
-    width: 83%;
+    width: 90%;
     border-right: none;
     height: 100%;
-    position: absolute;
-    display: block;
-    
+    margin-right: 15% ;
+       
 }
 
 .logo img{
@@ -88,7 +88,7 @@
 
 @media (max-width : 600px   ) {
     
-    .dash{
+   .dash{
    
     border-left: none;    
     margin-top: 2%;
@@ -109,7 +109,9 @@
         width: 100%;
         border-right: none;
         height: 500px;
-        position: inherit;
+        position: absolute;
+        display: block;
+        
         
       
     }

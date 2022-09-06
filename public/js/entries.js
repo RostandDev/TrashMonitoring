@@ -14,9 +14,17 @@
 
 
             req.then((_data)=>{
+                if(_data.status == !1){
+                    users();
+                    if(_data.error == "DATA_ERROR") _message("Les données sont incorrestes");
+                }
                 if(_data.status == !0){
+                    _message("Utilisateur enregistré");
                     users();
                 }
+            })
+            .catch((_data)=>{
+                _message("Erreur interne : verifier les données");
             })
         }
 
@@ -38,9 +46,17 @@
 
 
             req.then((_data)=>{
+                if(_data.status == !1){
+                    users();
+                    if(_data.error == "DATA_ERROR") _message("Les données sont incorrestes");
+                }
                 if(_data.status == !0){
+                    _message("Utilisateur modifié");
                     users();
                 }
+            })
+            .catch((_data)=>{
+                _message("Erreur interne : verifier les données");
             })
         }
 
@@ -60,7 +76,18 @@
 
 
             req.then((_data)=>{
-               trashs();
+                console.log(_data);
+                if(_data.status == !1){
+                    if(_data.error == "DATA_ERROR" ) _message("Erreur de données");
+                }
+                if(_data.status == !0){
+                     _message("Poubelle enregistrée");
+                     trashs();
+                }
+              
+            })
+            .catch((_data)=>{
+                _message("Erreur : veuillez verifier les données ");
             })
         }
 
@@ -81,7 +108,19 @@
             let req = _postRequest('trashs',data);
 
             req.then((_data)=>{
-               trashs();
+                console.log(_data);
+                if(_data.status == !1){
+                    if(_data.error == "DATA_ERROR" ) _message("Erreur de données");
+                }
+                if(_data.status == !0){
+                     _message(" Poubelle mise à jour");
+                     trashs();
+                }
+                
+               
+            })
+            .catch((_data)=>{
+                _message("Erreur : veuillez verifier les données ");
             })
         }
 
@@ -92,12 +131,9 @@
                                   
                    let req = _getRequest(_url+"?delete&id="+_data[i]);
 
-                   req.then((_data) =>{
-                     del++;
-                   });
-                   
+                   req.then((_data) =>{});
+                  
             }
-
-            return [del];
+           
         }
 

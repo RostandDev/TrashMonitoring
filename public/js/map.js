@@ -30,7 +30,6 @@
             req.then((_data) =>{
 
 
-
                 let map = L.map('maps').setView([6.2079449,1.1731463], 13);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -94,9 +93,7 @@
             
 
         }
-
-
-        
+       
        
     }
 )()

@@ -3,6 +3,7 @@
 
     let container = document.getElementById('u_table');
 
+    // function d'affichage du corps (tbody) du tableau des poubelles
     display_trash = (_start, _end)=>{
         
         let req = _getRequest('trashs?trashs');
@@ -10,7 +11,25 @@
         let tr = '';
         let _data = data.data;
 
+        if(_end >_data.length){
+            _end = _data.length 
+            document.querySelector("#next").style.display  = 'none';
+        }
+        else{
+            document.querySelector("#next").style.display  = 'block';
+        } 
 
+
+        if(_start < 50){
+  
+            document.querySelector("#prev").style.display  = 'none';
+        }
+        else{
+            document.querySelector("#prev").style.display  = 'block';
+        } 
+
+
+        
         document.getElementById('u_table').innerHTML ='';
             for( let n = _start; n < _end; n++){
                
@@ -52,25 +71,34 @@
             
 
             delete_check.onclick = ()=>{
+            
+                if(confirm("Voulez vous supprimer ces poubelles ?")){
+                    let del=0;
                 
-                
-                let data = [];
-                for(let i=0; i< _checkbox.length; i++){
-
-                    if(_checkbox[i].checked){
-                      
-                        data[i] = _checkbox[i].value;
-
-                       
+                    for(let i=0; i< _checkbox.length; i++){
+                        if(_checkbox[i].checked){                   
+        
+                           let req = _getRequest("trashs?delete&id="+_checkbox[i].value);
+        
+                           req.then((_data)=>{
+                                if(_data.status = !1){
+                                    if(_data.error == 'SESSION_EXPIRE') _getRequest("admins?disconnecte");
+    
+                                    _message("Erreur de donnée, poubelle inexistante");
+                                }
+                                _message('Donnéé '+ _checkbox[i].value+'supprimée') ;
+                                
+                           });
+                           del++;
+                        }
+        
                     }
-
+        
+                    if(del) _message(del + " Poubelles supprimées");
+                    trashs();
                 }
-
-
-                let del = _groupedeleting("trashs", data);
-                console.log(del);
-
-                alert(del+" Poubelles supprimées");
+                
+        
             }
 
             _max_delte.onclick = ()=>{
@@ -111,10 +139,18 @@
                         let req = _getRequest("trashs?delete&id="+id);
 
                         req.then((_data)=>{
-                            //console.log(_data);
-                            if(_data.status == !0){
-                                trashs();
+                            if(_data.status = !1){
+                                if(_data.error == 'SESSION_EXPIRE') _getRequest("admins?disconnecte");
+
+                                _message("Erreur de donnée, poubelle inexistante");
                             }
+                            else if(_data.status = !0){
+                                _message("Poubelle supprimée");
+                                trashs();
+                            
+                            }                
+                        }).catch((_data) => {
+                            _message("Erreur interne , veuillez ressayer plutard");
                         })
                     }
                 }
@@ -128,7 +164,7 @@
                     
                     req.then((_data)=>{
                         console.log(_data);
-                        if(_data.status == !1) return !1;
+                        if(_data.status == !1) _message("Erreur de donnés, veuillez réésayer plutard");
 
                         for (let i in _data.data ) {
                             document.querySelector('#u_name').value = _data.data[i]._name;
@@ -136,7 +172,6 @@
                             document.querySelector('#u_latitude').value = _data.data[i]._latitude;
                             document.querySelector('#u_address').value = _data.data[i]._address;
                             document.querySelector('#u_id').value = _data.data[i]._id;
-                           // document.querySelector('#_').value = _data[i]._;
                         }    
                         
                     })
@@ -185,6 +220,8 @@
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Adresse</th>
+                    <th></th>
+                    <th></th>
                     
                     
                 </tr>
@@ -193,6 +230,7 @@
 
             </tbody>
             <tfoot>
+                
                 <tr id="navs">
                     <td id="prev" class="icofont-arrow-left"></div>
                     <td id="loading"> Loading ... </td>

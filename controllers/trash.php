@@ -12,10 +12,10 @@ use views\trash\Update;
 require_once("../core/autoloader.php");
 
 
-if(isset($_SESSION['USER_UUID'])){
+if(isset($_SESSION['USER_UUID']) && $_SESSION['USER_SUPER']){ // verification de la validité de la session d'utilisateur
     //Afficher les poubrlles
     header('content-type: applicaton/json');
-    if(isset($_GET['trashs']) && $_SESSION['USER_SUPER']){
+    if(isset($_GET['trashs']) ){
 
         if(isset($_GET['id'])){
 
@@ -46,11 +46,13 @@ if(isset($_SESSION['USER_UUID'])){
 
 
 
+
     // Executer l'ajout d'une poubelle
 
     if(isset($_POST['insert']) ){
-    
-    $insert =  (new ModelsTrash())->_insert([
+        
+        header('content-type: applicaton/json');
+        $insert =  (new ModelsTrash())->_insert([
             '_uuid' => (new Uuid())->_uuid(),
             '_longitude' => htmlspecialchars($_POST['_longitude']),
             '_latitude' => htmlspecialchars($_POST['_latitude']),
@@ -59,23 +61,30 @@ if(isset($_SESSION['USER_UUID'])){
             '_author' => intval(htmlspecialchars($_SESSION['USER_ID']))
         ]);
 
-        if($insert['status']== !0) {
+        if( $insert['status'] == !0){
+            header('content-type: applicaton/json');
+
+
             $data = [
                 "status" => !0,
+                "succes" => "SUCCESS",
                 "data" => (new ModelsTrash())->_get()['data']
             ];
     
-           
-        }
-        else {
+            print_r(json_encode($data) ) ;
+        } 
+        else{
+            header('content-type: applicaton/json');
+
+
             $data = [
                 "status" => !1,
                 "error" => "DATA_ERROR",
                 "data" => (new ModelsTrash())->_get()['data']
             ];
-        } 
-
-        print_r(json_encode($data) ) ;
+    
+            print_r(json_encode($data) ) ;
+        }
 
 
     }
@@ -84,7 +93,7 @@ if(isset($_SESSION['USER_UUID'])){
 
     if(isset($_POST['update'])){
     
-        $insert =  (new ModelsTrash())->_update([
+        $update =  (new ModelsTrash())->_update([
             '_uuid' => (new Uuid())->_uuid(),
             '_longitude' => htmlspecialchars($_POST['_longitude']),
             '_latitude' => htmlspecialchars($_POST['_latitude']),
@@ -94,40 +103,47 @@ if(isset($_SESSION['USER_UUID'])){
             '_id' => htmlspecialchars($_POST['_id'])
         ]);
     
-        if($insert['status']== !0) {
+        if($update['status']== !0) {
             $data = [
                 "status" => !0,
                 "data" => (new ModelsTrash())->_get()['data']
             ];
+
+            print_r(json_encode($data) ) ;
     
            
         }
-        else {
+        elseif($update['status']== !1) {
             $data = [
                 "status" => !1,
-                "error" =>"DATA_ERROR",
+                "error" => "DATA_ERROR",
                 "data" => (new ModelsTrash())->_get()['data']
             ];
-        } 
 
-        print_r(json_encode($data) ) ;
+            print_r(json_encode($data) ) ;
+        } 
+        else{
+            
+                $data = [
+                    "status" => !1,
+                    "error" => "INTERNAL_ERROR",
+                ];
+                print_r(json_encode($data) ) ;
+             
+        }
+
+        
         
     
-    }
+    } // fin update
 
 
-
-
-    // Affichier le formulaire de mise à jour d'une poubelle
-    if(isset($_GET['update'])){
-        (new Update((new ModelsTrash())->_get_by_id(intval(htmlspecialchars($_GET['id'])))['data'], " "))->html();
-    }
 
     //suppression d'une boubelle
 
     if(isset($_GET['delete'])){
 
-
+        header('content-type: applicaton/json');
         $delete = (new ModelsTrash())->_delete(intval(htmlspecialchars($_GET['id'])));
 
         if($delete['status'] == !0) {
@@ -135,20 +151,28 @@ if(isset($_SESSION['USER_UUID'])){
                 "status" => !0,
                 "data" => (new ModelsTrash())->_get()['data']
             ];
-    
+            print_r(json_encode($data) ) ;
            
         }
-        else {
+        elseif($delete['status'] == !1) {
             $data = [
                 "status" => !1,
                 "error" =>"DATA_ERROR",
                 "data" => (new ModelsTrash())->_get()['data']
             ];
+
+            print_r(json_encode($data) ) ;
+         } 
+        else{
+            $data = [
+                "status" => !1,
+                "error" =>"INTERNAL_ERROR",
+                "data" => (new ModelsTrash())->_get()['data']
+            ];
+            print_r(json_encode($data) ) ;
         } 
 
-        print_r(json_encode($data) ) ;
-
-
+        
     }
 
     if(isset($_GET['status'])){
@@ -187,23 +211,37 @@ if(isset($_SESSION['USER_UUID'])){
         
                
             }
-            else {
+            elseif($insert['status']== !1) {
                 $data = [
                     "status" => !1,
                     "error" => "DATA_ERROR",
                     "data" => (new ModelsTrash())->_get()['data']
                 ];
             } 
+            else{
+                
+                    $data = [
+                        "status" => !1,
+                        "error" => "INTERNAL_ERROR",
+                    ];
+                 
+            }
+
     
             print_r(json_encode($data) ) ;
     
        
         }
-    }
+    } ///fin 
 
 
 
-}
+} //fin if
 else{
-    header("location:start");
+    $data = [
+        "status" => !1,
+        "error" => "ACCESS_DENIED",
+    ];
+
+    print_r(json_encode($data) ) ;
 }
