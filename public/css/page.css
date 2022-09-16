@@ -75,21 +75,18 @@ body {
     display: none;
     position: fixed;
     z-index: 1;
-    width: 40%;
+    width: 50%;
     top:0;
-
     margin: auto;
     margin-top: 10%;
     align-self: center;
-    
-
     margin-left: 25%;
     overflow: auto;
     background-color: #f1f1f1;
     border-radius: 3px;
     padding-top: 1%;
-
-
+    animation-name: zoom;
+    animation-duration: 0.6s;
 
 }
 
@@ -102,15 +99,12 @@ form{
     
 }
 
-.form{
-    animation-name: zoom;
-    animation-duration: 0.6s;
-    
-}
 
 .close{
     position: absolute;
-    right: 25px;
+    width: 100%;
+    margin-left: 84%;
+    
     color: black;
     font-size: 40px;
     font-weight: bold;
@@ -129,6 +123,16 @@ input, select{
     background: white;
     font-size: 20px;
     margin: 1%;
+
+}
+
+form div div{
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    font-size: 20px;
+    margin: 1%;
+
 }
 
 

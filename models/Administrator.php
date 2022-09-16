@@ -49,7 +49,7 @@
 
         public function _get(){
         
-            $data = $this -> _query(" SELECT * FROM t_administrators ");
+            $data = $this -> _query(" SELECT * FROM t_administrators ORDER BY _last_name");
     
             if($data['status'] == !0){
                 return [

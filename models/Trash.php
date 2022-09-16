@@ -88,7 +88,7 @@ class Trash extends DB{
 
     public function _get(){
         
-        $data = $this -> _query(" SELECT * FROM t_trashs ");
+        $data = $this -> _query(" SELECT * FROM t_trashs ORDER BY _name ");
 
         if($data['status'] == !0){
             return [
